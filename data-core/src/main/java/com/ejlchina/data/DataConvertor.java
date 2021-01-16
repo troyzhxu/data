@@ -1,4 +1,4 @@
-package com.ejlchina.okhttps;
+package com.ejlchina.data;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;

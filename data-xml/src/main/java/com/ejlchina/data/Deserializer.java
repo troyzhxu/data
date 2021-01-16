@@ -1,4 +1,4 @@
-package com.ejlchina.okhttps;
+package com.ejlchina.data;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;

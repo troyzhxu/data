@@ -1,4 +1,4 @@
-package com.ejlchina.okhttps;
+package com.ejlchina.data;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

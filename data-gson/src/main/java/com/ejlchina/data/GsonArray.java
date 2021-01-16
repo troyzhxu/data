@@ -1,4 +1,4 @@
-package com.ejlchina.okhttps;
+package com.ejlchina.data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
