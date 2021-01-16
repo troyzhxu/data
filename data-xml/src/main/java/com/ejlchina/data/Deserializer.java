@@ -36,8 +36,8 @@ public class Deserializer {
         }
         Object bean;
         try {
-            bean = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            bean = clazz.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new IllegalStateException("无法构造 " + clazz + " 对象", e);
         }
         TypeVariable<?>[] typeParas = clazz.getTypeParameters();
