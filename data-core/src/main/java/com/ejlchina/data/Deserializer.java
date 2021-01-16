@@ -128,7 +128,7 @@ public class Deserializer {
                     || !methodName.startsWith("set")) {
                 continue;
             }
-            String field = XmlUtils.firstCharToLowerCase(methodName.substring(3));
+            String field = firstCharToLowerCase(methodName.substring(3));
             methods.put(field, method);
         }
         return methods;
@@ -145,6 +145,19 @@ public class Deserializer {
             }
         }
         return null;
+    }
+
+    /**
+     * 首字母变小写
+     */
+    protected String firstCharToLowerCase(String str) {
+        char firstChar = str.charAt(0);
+        if (firstChar >= 'A' && firstChar <= 'Z') {
+            char[] arr = str.toCharArray();
+            arr[0] += ('a' - 'A');
+            return new String(arr);
+        }
+        return str;
     }
 
 }
