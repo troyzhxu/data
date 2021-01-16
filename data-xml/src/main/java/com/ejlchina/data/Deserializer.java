@@ -11,8 +11,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 反序列化器
+ */
 public class Deserializer {
 
+    /**
+     * Mapper 转换为 Java Bean
+     * @param mapper Mapper
+     * @param type Java Bean 类型
+     * @return Java Bean
+     */
     public Object deserialize(Mapper mapper, Type type) {
         Type[] typeArgs = null;
         if (type instanceof ParameterizedType) {
@@ -41,7 +50,7 @@ public class Deserializer {
             throw new IllegalStateException("无法构造 " + clazz + " 对象", e);
         }
         TypeVariable<?>[] typeParas = clazz.getTypeParameters();
-        Map<String, Method> methods = getSetMehthods(clazz);
+        Map<String, Method> methods = getSetMethods(clazz);
         for (String field : methods.keySet()) {
             Method method = methods.get(field);
             Type fieldType = method.getParameterTypes()[0];
@@ -110,7 +119,7 @@ public class Deserializer {
         return null;
     }
 
-    protected Map<String, Method> getSetMehthods(Class<?> clazz) {
+    protected Map<String, Method> getSetMethods(Class<?> clazz) {
         Map<String, Method> methods = new HashMap<>();
         for (Method method: clazz.getMethods()) {
             String methodName = method.getName();
