@@ -1,5 +1,11 @@
 # data
 
+<p>
+    <a href="https://maven-badges.herokuapp.com/maven-central/com.ejlchina/data/"><img src="https://maven-badges.herokuapp.com/maven-central/com.ejlchina/data/badge.svg" alt="Maven Central"></a>
+    <a href="https://gitee.com/ejlchina-zhxu/jsonkit/blob/master/LICENSE"><img src="https://img.shields.io/hexpm/l/plug.svg" alt="License"></a>
+    <a href="https://github.com/ejlchina"><img src="https://img.shields.io/badge/%E4%BD%9C%E8%80%85-ejlchina-orange.svg" alt="Troy.Zhou"></a>
+</p>
+
 #### 介绍
 提供 JSON、XML 等结构化数据的统一抽象 API
 
