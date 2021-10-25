@@ -1,4 +1,4 @@
-package com.ejlchina.data;
+package com.ejlchina.data.xml;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

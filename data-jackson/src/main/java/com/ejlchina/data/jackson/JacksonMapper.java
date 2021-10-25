@@ -1,17 +1,23 @@
-package com.ejlchina.data;
+package com.ejlchina.data.jackson;
 
+import com.ejlchina.data.Array;
+import com.ejlchina.data.Mapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class JacksonArray implements Array {
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
-	private final ArrayNode json;
+public class JacksonMapper implements Mapper {
+
+	private final ObjectNode json;
 	
-	public JacksonArray(ArrayNode json) {
+	public JacksonMapper(ObjectNode json) {
 		this.json = json;
 	}
-	
+
 	@Override
 	public int size() {
 		return json.size();
@@ -23,8 +29,8 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public Mapper getMapper(int index) {
-		JsonNode subJson = json.get(index);
+	public Mapper getMapper(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null && subJson.isObject()) {
 			return new JacksonMapper((ObjectNode) subJson);
 		}
@@ -32,8 +38,8 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public Array getArray(int index) {
-		JsonNode subJson = json.get(index);
+	public Array getArray(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null && subJson.isArray()) {
 			return new JacksonArray((ArrayNode) subJson);
 		}
@@ -41,8 +47,8 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public boolean getBool(int index) {
-		JsonNode subJson = json.get(index);
+	public boolean getBool(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null) {
 			return subJson.asBoolean(false);
 		}
@@ -50,8 +56,8 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public int getInt(int index) {
-		JsonNode subJson = json.get(index);
+	public int getInt(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null) {
 			return subJson.asInt(0);
 		}
@@ -59,17 +65,17 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public long getLong(int index) {
-		JsonNode subJson = json.get(index);
+	public long getLong(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null) {
 			return subJson.asLong(0);
 		}
 		return 0;
 	}
-	
+
 	@Override
-	public float getFloat(int index) {
-		JsonNode subJson = json.get(index);
+	public float getFloat(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null && subJson.isNumber()) {
 			return subJson.floatValue();
 		}
@@ -80,8 +86,8 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public double getDouble(int index) {
-		JsonNode subJson = json.get(index);
+	public double getDouble(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null) {
 			return subJson.asDouble(0);
 		}
@@ -89,12 +95,27 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
-	public String getString(int index) {
-		JsonNode subJson = json.get(index);
+	public String getString(String key) {
+		JsonNode subJson = json.get(key);
 		if (subJson != null) {
 			return subJson.asText();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean has(String key) {
+		return json.has(key);
+	}
+
+	@Override
+	public Set<String> keySet() {
+		Iterator<String> it = json.fieldNames();
+		Set<String> set = new HashSet<>();
+		while (it.hasNext()) {
+			set.add(it.next());
+		}
+		return set;
 	}
 
 	@Override

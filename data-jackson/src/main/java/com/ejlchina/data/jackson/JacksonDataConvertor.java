@@ -1,5 +1,8 @@
-package com.ejlchina.data;
+package com.ejlchina.data.jackson;
 
+import com.ejlchina.data.Array;
+import com.ejlchina.data.DataConvertor;
+import com.ejlchina.data.Mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;

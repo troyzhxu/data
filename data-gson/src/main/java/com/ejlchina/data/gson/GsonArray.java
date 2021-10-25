@@ -1,15 +1,15 @@
-package com.ejlchina.data;
+package com.ejlchina.data.gson;
 
+import com.ejlchina.data.Array;
+import com.ejlchina.data.Mapper;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
-import java.util.Set;
+public class GsonArray implements Array {
 
-public class GsonMapper implements Mapper {
-
-	private final JsonObject json;
+	private final JsonArray json;
 	
-	public GsonMapper(JsonObject json) {
+	public GsonArray(JsonArray json) {
 		this.json = json;
 	}
 
@@ -24,8 +24,8 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public Mapper getMapper(String key) {
-		JsonElement subJson = json.get(key);
+	public Mapper getMapper(int index) {
+		JsonElement subJson = json.get(index);
 		if (subJson != null && subJson.isJsonObject()) {
 			return new GsonMapper(subJson.getAsJsonObject());
 		}
@@ -33,8 +33,8 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public Array getArray(String key) {
-		JsonElement subJson = json.get(key);
+	public Array getArray(int index) {
+		JsonElement subJson = json.get(index);
 		if (subJson != null && subJson.isJsonArray()) {
 			return new GsonArray(subJson.getAsJsonArray());
 		}
@@ -42,8 +42,8 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public boolean getBool(String key) {
-		JsonElement val = json.get(key);
+	public boolean getBool(int index) {
+		JsonElement val = json.get(index);
 		if (val != null && val.isJsonPrimitive()) {
 			return val.getAsBoolean();
 		}
@@ -51,8 +51,8 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public int getInt(String key) {
-		JsonElement val = json.get(key);
+	public int getInt(int index) {
+		JsonElement val = json.get(index);
 		if (val != null && val.isJsonPrimitive()) {
 			return val.getAsInt();
 		}
@@ -60,17 +60,17 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public long getLong(String key) {
-		JsonElement val = json.get(key);
+	public long getLong(int index) {
+		JsonElement val = json.get(index);
 		if (val != null && val.isJsonPrimitive()) {
 			return val.getAsLong();
 		}
 		return 0;
 	}
-
+	
 	@Override
-	public float getFloat(String key) {
-		JsonElement val = json.get(key);
+	public float getFloat(int index) {
+		JsonElement val = json.get(index);
 		if (val != null && val.isJsonPrimitive()) {
 			return val.getAsFloat();
 		}
@@ -78,8 +78,8 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public double getDouble(String key) {
-		JsonElement val = json.get(key);
+	public double getDouble(int index) {
+		JsonElement val = json.get(index);
 		if (val != null && val.isJsonPrimitive()) {
 			return val.getAsDouble();
 		}
@@ -87,22 +87,12 @@ public class GsonMapper implements Mapper {
 	}
 
 	@Override
-	public String getString(String key) {
-		JsonElement val = json.get(key);
+	public String getString(int index) {
+		JsonElement val = json.get(index);
 		if (val != null && val.isJsonPrimitive()) {
 			return val.getAsString();
 		}
 		return null;
-	}
-
-	@Override
-	public boolean has(String key) {
-		return json.has(key);
-	}
-
-	@Override
-	public Set<String> keySet() {
-		return json.keySet();
 	}
 
 	@Override

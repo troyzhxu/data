@@ -1,7 +1,9 @@
-package com.ejlchina.data;
+package com.ejlchina.data.fastjson;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ejlchina.data.Array;
+import com.ejlchina.data.Mapper;
 
 import java.util.Set;
 

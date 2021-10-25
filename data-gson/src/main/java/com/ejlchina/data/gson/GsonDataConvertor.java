@@ -1,5 +1,8 @@
-package com.ejlchina.data;
+package com.ejlchina.data.gson;
 
+import com.ejlchina.data.Array;
+import com.ejlchina.data.DataConvertor;
+import com.ejlchina.data.Mapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

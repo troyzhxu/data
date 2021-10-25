@@ -1,21 +1,19 @@
-package com.ejlchina.data;
+package com.ejlchina.data.jackson;
 
+import com.ejlchina.data.Array;
+import com.ejlchina.data.Mapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+public class JacksonArray implements Array {
 
-public class JacksonMapper implements Mapper {
-
-	private final ObjectNode json;
+	private final ArrayNode json;
 	
-	public JacksonMapper(ObjectNode json) {
+	public JacksonArray(ArrayNode json) {
 		this.json = json;
 	}
-
+	
 	@Override
 	public int size() {
 		return json.size();
@@ -27,8 +25,8 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public Mapper getMapper(String key) {
-		JsonNode subJson = json.get(key);
+	public Mapper getMapper(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null && subJson.isObject()) {
 			return new JacksonMapper((ObjectNode) subJson);
 		}
@@ -36,8 +34,8 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public Array getArray(String key) {
-		JsonNode subJson = json.get(key);
+	public Array getArray(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null && subJson.isArray()) {
 			return new JacksonArray((ArrayNode) subJson);
 		}
@@ -45,8 +43,8 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public boolean getBool(String key) {
-		JsonNode subJson = json.get(key);
+	public boolean getBool(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null) {
 			return subJson.asBoolean(false);
 		}
@@ -54,8 +52,8 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public int getInt(String key) {
-		JsonNode subJson = json.get(key);
+	public int getInt(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null) {
 			return subJson.asInt(0);
 		}
@@ -63,17 +61,17 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public long getLong(String key) {
-		JsonNode subJson = json.get(key);
+	public long getLong(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null) {
 			return subJson.asLong(0);
 		}
 		return 0;
 	}
-
+	
 	@Override
-	public float getFloat(String key) {
-		JsonNode subJson = json.get(key);
+	public float getFloat(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null && subJson.isNumber()) {
 			return subJson.floatValue();
 		}
@@ -84,8 +82,8 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public double getDouble(String key) {
-		JsonNode subJson = json.get(key);
+	public double getDouble(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null) {
 			return subJson.asDouble(0);
 		}
@@ -93,27 +91,12 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
-	public String getString(String key) {
-		JsonNode subJson = json.get(key);
+	public String getString(int index) {
+		JsonNode subJson = json.get(index);
 		if (subJson != null) {
 			return subJson.asText();
 		}
 		return null;
-	}
-
-	@Override
-	public boolean has(String key) {
-		return json.has(key);
-	}
-
-	@Override
-	public Set<String> keySet() {
-		Iterator<String> it = json.fieldNames();
-		Set<String> set = new HashSet<>();
-		while (it.hasNext()) {
-			set.add(it.next());
-		}
-		return set;
 	}
 
 	@Override

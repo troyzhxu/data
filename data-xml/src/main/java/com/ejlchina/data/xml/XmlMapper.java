@@ -1,6 +1,10 @@
-package com.ejlchina.data;
+package com.ejlchina.data.xml;
 
-import org.w3c.dom.*;
+import com.ejlchina.data.Array;
+import com.ejlchina.data.Mapper;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Attr;
 
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;

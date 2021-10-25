@@ -1,6 +1,9 @@
-package com.ejlchina.data;
+package com.ejlchina.data.fastjson;
 
 import com.alibaba.fastjson.JSON;
+import com.ejlchina.data.Array;
+import com.ejlchina.data.DataConvertor;
+import com.ejlchina.data.Mapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
