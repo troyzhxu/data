@@ -1,4 +1,4 @@
-module data.jackson {
+module data.xml {
     requires data.core;
     requires java.xml;
     requires java.xml.bind;
