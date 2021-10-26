@@ -3,7 +3,7 @@
 
 	<groupId>com.ejlchina</groupId>
 	<artifactId>data</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<name>Data</name>
 
 	<packaging>pom</packaging>
@@ -46,7 +46,7 @@
 		<connection>scm:git://gitee.com/ejlchina-zhxu/data.git</connection>
 		<developerConnection>scm:http://gitee.com/ejlchina-zhxu/data</developerConnection>
 		<url>https://gitee.com/ejlchina-zhxu/data</url>
-		<tag>v1.1.0</tag>
+		<tag>v1.1.1</tag>
 	</scm>
 	
 	<dependencies>
@@ -130,6 +130,7 @@
 					</jdkToolchain>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 
@@ -151,7 +152,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.3.1</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 				<executions>
 					<execution>
