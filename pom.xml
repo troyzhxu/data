@@ -46,7 +46,7 @@
 		<connection>scm:git://gitee.com/ejlchina-zhxu/data.git</connection>
 		<developerConnection>scm:http://gitee.com/ejlchina-zhxu/data</developerConnection>
 		<url>https://gitee.com/ejlchina-zhxu/data</url>
-		<tag>v1.1.1</tag>
+		<tag>v1.1.2</tag>
 	</scm>
 	
 	<dependencies>
