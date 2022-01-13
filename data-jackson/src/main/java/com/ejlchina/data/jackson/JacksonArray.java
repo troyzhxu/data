@@ -93,10 +93,10 @@ public class JacksonArray implements Array {
 	@Override
 	public String getString(int index) {
 		JsonNode subJson = json.get(index);
-		if (subJson != null) {
-			return subJson.asText();
+		if (subJson == null || subJson.isNull()) {
+			return null;
 		}
-		return null;
+		return subJson.asText();
 	}
 
 	@Override

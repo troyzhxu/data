@@ -97,10 +97,10 @@ public class JacksonMapper implements Mapper {
 	@Override
 	public String getString(String key) {
 		JsonNode subJson = json.get(key);
-		if (subJson != null) {
-			return subJson.asText();
+		if (subJson == null || subJson.isNull()) {
+			return null;
 		}
-		return null;
+		return subJson.asText();
 	}
 
 	@Override
