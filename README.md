@@ -7,23 +7,18 @@
 </p>
 
 #### 介绍
+
 提供 JSON、XML 等结构化数据的统一抽象 API
 
-#### 软件架构
-软件架构说明
 
+#### 友情链接
 
-#### 安装教程
+[**[ OkHttps ]** 轻量却强大的 HTTP 客户端，前后端通用，支持 WebSocket 与 Stomp 协议](https://gitee.com/ejlchina-zhxu/okhttps)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+[**[ Bean Searcher ]** 比 MyBatis 效率快 100 倍的条件检索引擎，天生支持联表，使一行代码实现复杂列表检索成为可能！](https://github.com/ejlchina/bean-searcher)
 
-#### 使用说明
+[**[ Json Kit ]** 超轻量级 JSON 门面工具，用法简单，不依赖具体实现，让业务代码与 Jackson、Gson、Fastjson 等解耦！](https://gitee.com/ejlchina-zhxu/jsonkit)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
 
 #### 参与贡献
 
