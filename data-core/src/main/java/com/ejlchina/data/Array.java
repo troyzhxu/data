@@ -1,5 +1,8 @@
 package com.ejlchina.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 列表结构的只读数据集
  *
@@ -108,6 +111,55 @@ public interface Array extends DataSet {
 
 			});
 		}
+	}
+
+	/**
+	 * @param <T> 目标泛型
+	 * @param type 目标类型
+	 * @return 转 JavaBean 列表
+	 * @since v1.2.0
+	 */
+	@SuppressWarnings("unchecked")
+	default <T> List<T> toList(Class<T> type) {
+		int size = size();
+		if (type == Boolean.class) {
+			List<Boolean> list = new ArrayList<>(size);
+			forEach((index, data) -> list.set(index, data.toBool()));
+			return (List<T>) list;
+		}
+		if (type == Integer.class || type == int.class) {
+			List<Integer> list = new ArrayList<>(size);
+			forEach((index, data) -> list.set(index, data.toInt()));
+			return (List<T>) list;
+		}
+		if (type == Long.class || type == long.class) {
+			List<Long> list = new ArrayList<>(size);
+			forEach((index, data) -> list.set(index, data.toLong()));
+			return (List<T>) list;
+		}
+		if (type == Float.class || type == float.class) {
+			List<Float> list = new ArrayList<>(size);
+			forEach((index, data) -> list.set(index, data.toFloat()));
+			return (List<T>) list;
+		}
+		if (type == Double.class || type == double.class) {
+			List<Double> list = new ArrayList<>(size);
+			forEach((index, data) -> list.set(index, data.toDouble()));
+			return (List<T>) list;
+		}
+		if (type == String.class) {
+			List<String> list = new ArrayList<>(size);
+			forEach((index, data) -> list.set(index, data.toString()));
+			return (List<T>) list;
+		}
+		List<T> list = new ArrayList<>(size);
+		for (int index = 0; index < size; index++) {
+			Mapper mapper = getMapper(index);
+			if (mapper != null) {
+				list.set(index, mapper.toBean(type));
+			}
+		}
+		return list;
 	}
 
 }
