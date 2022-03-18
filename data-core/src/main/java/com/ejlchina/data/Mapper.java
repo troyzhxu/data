@@ -131,7 +131,7 @@ public interface Mapper extends DataSet {
 	 * @since v1.2.0
 	 */
 	default <T> T toBean(Class<T> type) {
-		return toBean(new TypeRef<>(type) {});
+		return toBean(new TypeRef<T>(type) {});
 	}
 
 	/**
@@ -141,7 +141,7 @@ public interface Mapper extends DataSet {
 	 * @since v1.2.0
 	 */
 	default <T> T toBean(Type type) {
-		return toBean(new TypeRef<>(type) {});
+		return toBean(new TypeRef<T>(type) {});
 	}
 
 	/**
