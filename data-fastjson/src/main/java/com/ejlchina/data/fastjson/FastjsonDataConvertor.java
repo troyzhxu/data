@@ -17,12 +17,22 @@ public class FastjsonDataConvertor implements DataConvertor {
 
 	@Override
 	public Mapper toMapper(InputStream in, Charset charset) {
-		return new FastjsonMapper(JSON.parseObject(toString(in, charset)));
+		return toMapper(toString(in, charset));
+	}
+
+	@Override
+	public Mapper toMapper(String in) {
+		return new FastjsonMapper(JSON.parseObject(in));
 	}
 
 	@Override
 	public Array toArray(InputStream in, Charset charset) {
-		return new FastjsonArray(JSON.parseArray(toString(in, charset)));
+		return toArray(toString(in, charset));
+	}
+
+	@Override
+	public Array toArray(String in) {
+		return new FastjsonArray(JSON.parseArray(in));
 	}
 
 	@Override
@@ -31,6 +41,11 @@ public class FastjsonDataConvertor implements DataConvertor {
 			return object.toString().getBytes(charset);
 		}
 		return JSON.toJSONString(object).getBytes(charset);
+	}
+
+	@Override
+	public String serialize(Object object) {
+		return JSON.toJSONString(object);
 	}
 
 	@Override
@@ -43,8 +58,18 @@ public class FastjsonDataConvertor implements DataConvertor {
 	}
 
 	@Override
+	public <T> T toBean(Type type, String in) {
+		return JSON.parseObject(in, type);
+	}
+
+	@Override
 	public <T> List<T> toList(Class<T> type, InputStream in, Charset charset) {
-		return JSON.parseArray(toString(in, charset), type);
+		return toList(type, toString(in, charset));
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type, String in) {
+		return JSON.parseArray(in, type);
 	}
 
 	protected String toString(InputStream in, Charset charset) {
