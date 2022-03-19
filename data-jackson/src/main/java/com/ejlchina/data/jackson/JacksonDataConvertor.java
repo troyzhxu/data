@@ -17,93 +17,98 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class JacksonDataConvertor implements DataConvertor {
 
 	private ObjectMapper objectMapper;
-
-	private final Map<Type, TypeReference<?>> cache = new HashMap<>();
-
-	private boolean typeCached;
 
 	public JacksonDataConvertor() {
 		this(new ObjectMapper());
 	}
 
 	public JacksonDataConvertor(ObjectMapper objectMapper) {
-		this(objectMapper, false);
-	}
-
-	public JacksonDataConvertor(ObjectMapper objectMapper, boolean typeCached) {
 		this.objectMapper = objectMapper;
-		this.typeCached = typeCached;
 	}
 
 	@Override
 	public Mapper toMapper(InputStream in, Charset charset) {
 		try {
-			JsonNode json = objectMapper.readTree(new InputStreamReader(in, charset));
-			if (json.isObject()) {
-				return new JacksonMapper((ObjectNode) json);
-			}
-			if (json.isNull() || json.isMissingNode()) {
-				return null;
-			}
-			throw new IllegalStateException("不是 一个 json 对象：" + json);
+			return toMapper(objectMapper.readTree(new InputStreamReader(in, charset)));
 		} catch (IOException e) {
 			throw new IllegalStateException("Jackson 解析异常", e);
 		}
+	}
+
+	@Override
+	public Mapper toMapper(String in) {
+		try {
+			return toMapper(objectMapper.readTree(in));
+		} catch (IOException e) {
+			throw new IllegalStateException("Jackson 解析异常", e);
+		}
+	}
+
+	private Mapper toMapper(JsonNode json) {
+		if (json.isObject()) {
+			return new JacksonMapper((ObjectNode) json);
+		}
+		if (json.isNull() || json.isMissingNode()) {
+			return null;
+		}
+		throw new IllegalStateException("不是 一个 json 对象：" + json);
 	}
 
 	@Override
 	public Array toArray(InputStream in, Charset charset) {
 		try {
-			JsonNode json = objectMapper.readTree(new InputStreamReader(in, charset));
-			if (json.isArray()) {
-				return new JacksonArray((ArrayNode) json);
-			}
-			if (json.isNull() || json.isMissingNode()) {
-				return null;
-			}
-			throw new IllegalStateException("不是 一个 json 数组：" + json);
+			return toArray(objectMapper.readTree(new InputStreamReader(in, charset)));
 		} catch (IOException e) {
 			throw new IllegalStateException("Jackson 解析异常", e);
 		}
 	}
 
 	@Override
+	public Array toArray(String in) {
+		try {
+			return toArray(objectMapper.readTree(in));
+		} catch (IOException e) {
+			throw new IllegalStateException("Jackson 解析异常", e);
+		}
+	}
+
+	private Array toArray(JsonNode json) {
+		if (json.isArray()) {
+			return new JacksonArray((ArrayNode) json);
+		}
+		if (json.isNull() || json.isMissingNode()) {
+			return null;
+		}
+		throw new IllegalStateException("不是 一个 json 数组：" + json);
+	}
+
+	@Override
 	public byte[] serialize(Object object, Charset charset) {
+		return serialize(object).getBytes(charset);
+	}
+
+	@Override
+	public String serialize(Object object) {
 		if (object instanceof JacksonMapper || object instanceof JacksonArray) {
-			return object.toString().getBytes(charset);
+			return object.toString();
 		}
 		try {
-			return objectMapper.writeValueAsString(object).getBytes(charset);
+			return objectMapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			throw new IllegalStateException("Java Bean [" + object + "] Jackson 序列化异常", e);
 		}
 	}
 
 	protected <T> TypeReference<T> toTypeRef(Type type) {
-		TypeReference<T> typeRef;
-		synchronized (cache) {
-			//noinspection unchecked
-			typeRef = (TypeReference<T>) cache.get(type);
-			if (typeRef == null) {
-				typeRef = new TypeReference<T>() {
-					@Override
-					public Type getType() {
-						return type;
-					}
-				};
-				if (typeCached) {
-					cache.put(type, typeRef);
-				}
-			}
-		}
-		return typeRef;
+		return new TypeReference<T>() {
+			@Override
+			public Type getType() { return type; }
+		};
 	}
 
 	@Override
@@ -116,13 +121,34 @@ public class JacksonDataConvertor implements DataConvertor {
 	}
 
 	@Override
-	public <T> List<T> toList(Class<T> type, InputStream in, Charset charset) {
-		CollectionType javaType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
+	public <T> T toBean(Type type, String in) {
 		try {
-			return objectMapper.readValue(new InputStreamReader(in, charset), javaType);
+			return objectMapper.readValue(in, toTypeRef(type));
 		} catch (IOException e) {
 			throw new IllegalStateException("Jackson 解析异常", e);
 		}
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type, InputStream in, Charset charset) {
+		try {
+			return objectMapper.readValue(new InputStreamReader(in, charset), listType(type));
+		} catch (IOException e) {
+			throw new IllegalStateException("Jackson 解析异常", e);
+		}
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type, String in) {
+		try {
+			return objectMapper.readValue(in, listType(type));
+		} catch (IOException e) {
+			throw new IllegalStateException("Jackson 解析异常", e);
+		}
+	}
+
+	private <T> CollectionType listType(Class<T> type) {
+		return objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
 	}
 
 	public ObjectMapper getObjectMapper() {
@@ -131,14 +157,6 @@ public class JacksonDataConvertor implements DataConvertor {
 
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
-	}
-
-	public boolean isTypeCached() {
-		return typeCached;
-	}
-
-	public void setTypeCached(boolean typeCached) {
-		this.typeCached = typeCached;
 	}
 
 }
