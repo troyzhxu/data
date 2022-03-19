@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,19 +75,13 @@ public class GsonDataConvertor implements DataConvertor {
 	@Override
 	public <T> List<T> toList(Class<T> type, InputStream in, Charset charset) {
 		T[] beans = gson.fromJson(new InputStreamReader(in, charset), TypeToken.getArray(type).getType());
-		return toList(beans);
+		return Arrays.asList(beans);
 	}
 
 	@Override
 	public <T> List<T> toList(Class<T> type, String in) {
 		T[] beans = gson.fromJson(in, TypeToken.getArray(type).getType());
-		return toList(beans);
-	}
-
-	private <T> List<T> toList(T[] beans) {
-		List<T> list = new ArrayList<>(beans.length);
-		Collections.addAll(list, beans);
-		return list;
+		return Arrays.asList(beans);
 	}
 
 	public Gson getGson() {
