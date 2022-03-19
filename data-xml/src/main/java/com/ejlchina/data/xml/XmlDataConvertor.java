@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +82,24 @@ public class XmlDataConvertor implements DataConvertor {
             StringWriter writer = new StringWriter();
             marshaller.marshal(object, writer);
             return writer.toString().getBytes(charset);
+        } catch (JAXBException e) {
+            throw new IllegalStateException("XML 序列化异常：", e);
+        }
+    }
+
+    @Override
+    public String serialize(Object object) {
+        if (object instanceof XmlMapper || object instanceof XmlArray) {
+            return object.toString();
+        }
+        try {
+            JAXBContext context = JAXBContext.newInstance(object.getClass());
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, serializeFormatted);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
+            StringWriter writer = new StringWriter();
+            marshaller.marshal(object, writer);
+            return writer.toString();
         } catch (JAXBException e) {
             throw new IllegalStateException("XML 序列化异常：", e);
         }
