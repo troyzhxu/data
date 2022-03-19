@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class Deserializer {
 
+    private static Deserializer deserializer;
+
     /**
      * Mapper 转换为 Java Bean
      * @param mapper Mapper
@@ -30,6 +32,30 @@ public class Deserializer {
         Class<?> clazz = toClass(type);
         return toBean(clazz, typeArgs, mapper);
     }
+
+    /**
+     * 获取 Deserializer 实例
+     * @return Deserializer
+     * @since v1.2.0
+     */
+    public static Deserializer getInstance() {
+        if (deserializer == null) {
+            String className = System.getProperty(Deserializer.class.getName());
+            if (className != null) {
+                try {
+                    Class<?> dClass = Class.forName(className);
+                    deserializer = (Deserializer) dClass.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (deserializer == null) {
+                deserializer = new Deserializer();
+            }
+        }
+        return deserializer;
+    }
+
 
     protected Object toBean(Class<?> clazz, Type[] typeArgs, Mapper mapper) {
         if (clazz == Map.class || clazz == HashMap.class) {
