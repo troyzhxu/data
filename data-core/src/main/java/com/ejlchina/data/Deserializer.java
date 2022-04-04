@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class Deserializer {
 
-    private static Deserializer deserializer;
+    private static Deserializer instance;
 
     /**
      * Mapper 转换为 Java Bean
@@ -39,21 +39,26 @@ public class Deserializer {
      * @since v1.2.0
      */
     public static Deserializer getInstance() {
-        if (deserializer == null) {
-            String className = System.getProperty(Deserializer.class.getName());
-            if (className != null) {
-                try {
-                    Class<?> dClass = Class.forName(className);
-                    deserializer = (Deserializer) dClass.getDeclaredConstructor().newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if (instance != null) {
+            return instance;
+        }
+        synchronized (Deserializer.class) {
+            if (instance == null) {
+                String className = System.getProperty(Deserializer.class.getName());
+                if (className != null) {
+                    try {
+                        Class<?> dClass = Class.forName(className);
+                        instance = (Deserializer) dClass.getDeclaredConstructor().newInstance();
+                    } catch (Exception e) {
+                        throw new RuntimeException("can not create Deserializer with class: " + className, e);
+                    }
+                }
+                if (instance == null) {
+                    instance = new Deserializer();
                 }
             }
-            if (deserializer == null) {
-                deserializer = new Deserializer();
-            }
+            return instance;
         }
-        return deserializer;
     }
 
 
