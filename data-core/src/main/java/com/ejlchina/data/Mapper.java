@@ -2,6 +2,7 @@ package com.ejlchina.data;
 
 import java.lang.reflect.Type;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * 映射结构的只读数据集
@@ -77,7 +78,7 @@ public interface Mapper extends DataSet {
 	 * @since 2.5.1
 	 * @param consumer 消费者
 	 */
-	default void forEach(Consumer<String> consumer) {
+	default void forEach(BiConsumer<String, Data> consumer) {
 		for (String key: keySet()) {
 			consumer.accept(key, new Data() {
 				@Override
