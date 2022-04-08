@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +29,14 @@ public class XmlDataConvertor implements DataConvertor {
 
     private boolean serializeFormatted = false;
 
-    private Deserializer deserializer;
-
     private DocumentBuilderFactory dbFactory;
 
 
     public XmlDataConvertor() {
-        this(new Deserializer(), DocumentBuilderFactory.newInstance());
+        this(DocumentBuilderFactory.newInstance());
     }
 
-    public XmlDataConvertor(Deserializer deserializer, DocumentBuilderFactory dbFactory) {
-        this.deserializer = deserializer;
+    public XmlDataConvertor(DocumentBuilderFactory dbFactory) {
         this.dbFactory = dbFactory;
     }
 
@@ -90,9 +88,27 @@ public class XmlDataConvertor implements DataConvertor {
     }
 
     @Override
+    public String serialize(Object object) {
+        if (object instanceof XmlMapper || object instanceof XmlArray) {
+            return object.toString();
+        }
+        try {
+            JAXBContext context = JAXBContext.newInstance(object.getClass());
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, serializeFormatted);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
+            StringWriter writer = new StringWriter();
+            marshaller.marshal(object, writer);
+            return writer.toString();
+        } catch (JAXBException e) {
+            throw new IllegalStateException("XML 序列化异常：", e);
+        }
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T> T toBean(Type type, InputStream in, Charset charset) {
-        return (T) deserializer.deserialize(toMapper(in, charset), type);
+        return (T) Deserializer.getInstance().deserialize(toMapper(in, charset), type);
     }
 
     @Override
@@ -101,7 +117,7 @@ public class XmlDataConvertor implements DataConvertor {
         Array array = toArray(in, charset);
         List<T> list = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
-            list.add((T) deserializer.deserialize(array.getMapper(i), type));
+            list.add((T) Deserializer.getInstance().deserialize(array.getMapper(i), type));
         }
         return list;
     }
@@ -120,14 +136,6 @@ public class XmlDataConvertor implements DataConvertor {
 
     public void setValueKeys(String[] valueKeys) {
         this.valueKeys = valueKeys;
-    }
-
-    public Deserializer getDeserializer() {
-        return deserializer;
-    }
-
-    public void setDeserializer(Deserializer deserializer) {
-        this.deserializer = deserializer;
     }
 
     public DocumentBuilderFactory getDbFactory() {

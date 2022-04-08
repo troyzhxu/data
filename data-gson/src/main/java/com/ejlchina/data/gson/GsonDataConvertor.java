@@ -12,8 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class GsonDataConvertor implements DataConvertor {
@@ -34,16 +33,31 @@ public class GsonDataConvertor implements DataConvertor {
 	}
 
 	@Override
+	public Mapper toMapper(String in) {
+		return new GsonMapper(gson.fromJson(in, JsonObject.class));
+	}
+
+	@Override
 	public Array toArray(InputStream in, Charset charset) {
 		return new GsonArray(gson.fromJson(new InputStreamReader(in, charset), JsonArray.class));
 	}
 
 	@Override
+	public Array toArray(String in) {
+		return new GsonArray(gson.fromJson(in, JsonArray.class));
+	}
+
+	@Override
 	public byte[] serialize(Object object, Charset charset) {
+		return serialize(object).getBytes(charset);
+	}
+
+	@Override
+	public String serialize(Object object) {
 		if (object instanceof GsonMapper || object instanceof GsonArray) {
-			return object.toString().getBytes(charset);
+			return object.toString();
 		}
-		return gson.toJson(object).getBytes(charset);
+		return gson.toJson(object);
 	}
 
 	@Override
@@ -52,11 +66,20 @@ public class GsonDataConvertor implements DataConvertor {
 	}
 
 	@Override
+	public <T> T toBean(Type type, String in) {
+		return gson.fromJson(in, type);
+	}
+
+	@Override
 	public <T> List<T> toList(Class<T> type, InputStream in, Charset charset) {
 		T[] beans = gson.fromJson(new InputStreamReader(in, charset), TypeToken.getArray(type).getType());
-		List<T> list = new ArrayList<>();
-		Collections.addAll(list, beans);
-		return list;
+		return Arrays.asList(beans);
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type, String in) {
+		T[] beans = gson.fromJson(in, TypeToken.getArray(type).getType());
+		return Arrays.asList(beans);
 	}
 
 	public Gson getGson() {

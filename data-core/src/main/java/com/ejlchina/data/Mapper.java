@@ -131,8 +131,9 @@ public interface Mapper extends DataSet {
 	 * @return JavaBean
 	 * @since v1.2.0
 	 */
+	@SuppressWarnings("unchecked")
 	default <T> T toBean(Class<T> type) {
-		return toBean(new TypeRef<T>(type) {});
+		return (T) Deserializer.getInstance().deserialize(this, type);
 	}
 
 	/**
@@ -141,8 +142,9 @@ public interface Mapper extends DataSet {
 	 * @return JavaBean
 	 * @since v1.2.0
 	 */
+	@SuppressWarnings("unchecked")
 	default <T> T toBean(Type type) {
-		return toBean(new TypeRef<T>(type) {});
+		return (T) Deserializer.getInstance().deserialize(this, type);
 	}
 
 	/**
@@ -153,20 +155,7 @@ public interface Mapper extends DataSet {
 	 */
 	@SuppressWarnings("unchecked")
 	default <T> T toBean(TypeRef<T> type) {
-		String className = System.getProperty(Deserializer.class.getName());
-		Deserializer deserializer = null;
-		if (className != null) {
-			try {
-				Class<?> dClass = Class.forName(className);
-				deserializer = (Deserializer) dClass.getDeclaredConstructor().newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		if (deserializer == null) {
-			deserializer = new Deserializer();
-		}
-		return (T) deserializer.deserialize(this, type.getType());
+		return (T) Deserializer.getInstance().deserialize(this, type.getType());
 	}
 
 }
