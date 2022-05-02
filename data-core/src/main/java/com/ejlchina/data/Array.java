@@ -122,42 +122,40 @@ public interface Array extends DataSet {
 	@SuppressWarnings("unchecked")
 	default <T> List<T> toList(Class<T> type) {
 		int size = size();
-		if (type == Boolean.class) {
+		if (type == Boolean.class || type == boolean.class) {
 			List<Boolean> list = new ArrayList<>(size);
-			forEach((index, data) -> list.set(index, data.toBool()));
+			forEach((i, data) -> list.add(data.toBool()));
 			return (List<T>) list;
 		}
 		if (type == Integer.class || type == int.class) {
 			List<Integer> list = new ArrayList<>(size);
-			forEach((index, data) -> list.set(index, data.toInt()));
+			forEach((i, data) -> list.add(data.toInt()));
 			return (List<T>) list;
 		}
 		if (type == Long.class || type == long.class) {
 			List<Long> list = new ArrayList<>(size);
-			forEach((index, data) -> list.set(index, data.toLong()));
+			forEach((i, data) -> list.add(data.toLong()));
 			return (List<T>) list;
 		}
 		if (type == Float.class || type == float.class) {
 			List<Float> list = new ArrayList<>(size);
-			forEach((index, data) -> list.set(index, data.toFloat()));
+			forEach((i, data) -> list.add(data.toFloat()));
 			return (List<T>) list;
 		}
 		if (type == Double.class || type == double.class) {
 			List<Double> list = new ArrayList<>(size);
-			forEach((index, data) -> list.set(index, data.toDouble()));
+			forEach((i, data) -> list.add(data.toDouble()));
 			return (List<T>) list;
 		}
 		if (type == String.class) {
 			List<String> list = new ArrayList<>(size);
-			forEach((index, data) -> list.set(index, data.toString()));
+			forEach((i, data) -> list.add(data.toString()));
 			return (List<T>) list;
 		}
 		List<T> list = new ArrayList<>(size);
 		for (int index = 0; index < size; index++) {
-			Mapper mapper = getMapper(index);
-			if (mapper != null) {
-				list.set(index, mapper.toBean(type));
-			}
+			Mapper m = getMapper(index);
+			list.add(m != null ? m.toBean(type) : null);
 		}
 		return list;
 	}
