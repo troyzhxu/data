@@ -16,7 +16,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-core</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-fastjson</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-gson</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -46,7 +46,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-jackson</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -56,7 +56,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-xml</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
