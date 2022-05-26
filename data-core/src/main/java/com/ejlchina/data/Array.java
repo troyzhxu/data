@@ -6,10 +6,10 @@ import java.util.function.BiConsumer;
 
 /**
  * 列表结构的只读数据集
- *
- * @since 2.0.0
  * Array 接口 类似于 JsonArray
- * 但为什么不取名为 json 呢，因它不止是 json，它还可以是 xml、yml、protobuf 等任何一种格式的数据
+ * 但为什么不取名为 JsonArray 呢，因它不止是 json，它还可以是 xml、yml、protobuf 等任何一种格式的数据
+ * @author Troy.Zhou
+ * @since 2.0.0
  */
 public interface Array extends DataSet {
 

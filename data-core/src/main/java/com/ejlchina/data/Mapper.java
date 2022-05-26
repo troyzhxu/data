@@ -6,11 +6,10 @@ import java.util.function.BiConsumer;
 
 /**
  * 映射结构的只读数据集
- *
+ * Mapper 接口，类似于 JsonObject
+ * 但为什么不取名为 JsonObject 呢? 因它不止是 json，它还可以是 xml、yml、protobuf 等任何一种格式的数据
+ * @author Troy.Zhou
  * @since 2.0.0
- * Mapper 接口，类似于 json
- * 但为什么不取名为 json 呢，因它不止是 json，它还可以是 xml、yml、protobuf 等任何一种格式的数据
- * @author 15735
  */
 public interface Mapper extends DataSet {
 
