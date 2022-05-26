@@ -1,16 +1,35 @@
 package com.ejlchina.data;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Troy Zhou
  * @since v2.5.2
  */
-public class HashMapper extends HashMap<String, Object> implements Mapper {
+public class HashMapper implements Mapper {
+
+    private final Map<String, Object> map = new HashMap<>();
+
+    @Override
+    public Set<String> keySet() {
+        return map.keySet();
+    }
+
+    @Override
+    public int size() {
+        return map.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
 
     @Override
     public Mapper getMapper(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Mapper) {
             return (Mapper) o;
         }
@@ -19,7 +38,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public Array getArray(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Array) {
             return (Array) o;
         }
@@ -28,7 +47,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public boolean getBool(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Boolean) {
             return (Boolean) o;
         }
@@ -37,7 +56,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public int getInt(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Number) {
             return ((Number) o).intValue();
         }
@@ -46,7 +65,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public long getLong(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Number) {
             return ((Number) o).longValue();
         }
@@ -55,7 +74,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public float getFloat(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Number) {
             return ((Number) o).floatValue();
         }
@@ -64,7 +83,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public double getDouble(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o instanceof Number) {
             return ((Number) o).doubleValue();
         }
@@ -73,7 +92,7 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public String getString(String key) {
-        Object o = get(key);
+        Object o = map.get(key);
         if (o != null) {
             return o.toString();
         }
@@ -82,7 +101,39 @@ public class HashMapper extends HashMap<String, Object> implements Mapper {
 
     @Override
     public boolean has(String key) {
-        return containsKey(key);
+        return map.containsKey(key);
+    }
+
+    public void put(String key, Mapper value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, Array value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, boolean value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, int value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, long value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, float value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, double value) {
+        map.put(key, value);
+    }
+
+    public void put(String key, String value) {
+        map.put(key, value);
     }
 
 }

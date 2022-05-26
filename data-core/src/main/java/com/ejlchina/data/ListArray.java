@@ -1,16 +1,19 @@
 package com.ejlchina.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Troy Zhou
  * @since v2.5.2
  */
-public class ListArray extends ArrayList<Object> implements Array {
+public class ListArray implements Array {
+
+    private final List<Object> list = new ArrayList<>();
 
     @Override
     public Mapper getMapper(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Mapper) {
             return (Mapper) o;
         }
@@ -19,7 +22,7 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public Array getArray(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Array) {
             return (Array) o;
         }
@@ -28,7 +31,7 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public boolean getBool(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Boolean) {
             return (Boolean) o;
         }
@@ -37,7 +40,7 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public int getInt(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Number) {
             return ((Number) o).intValue();
         }
@@ -46,7 +49,7 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public long getLong(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Number) {
             return ((Number) o).longValue();
         }
@@ -55,7 +58,7 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public float getFloat(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Number) {
             return ((Number) o).floatValue();
         }
@@ -64,7 +67,7 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public double getDouble(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o instanceof Number) {
             return ((Number) o).doubleValue();
         }
@@ -73,11 +76,53 @@ public class ListArray extends ArrayList<Object> implements Array {
 
     @Override
     public String getString(int index) {
-        Object o = get(index);
+        Object o = list.get(index);
         if (o != null) {
             return o.toString();
         }
         return null;
+    }
+
+    @Override
+    public int size() {
+        return list.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public void add(Mapper value) {
+        list.add(value);
+    }
+
+    public void add(Array value) {
+        list.add(value);
+    }
+
+    public void add(boolean value) {
+        list.add(value);
+    }
+
+    public void add(int value) {
+        list.add(value);
+    }
+
+    public void add(long value) {
+        list.add(value);
+    }
+
+    public void add(float value) {
+        list.add(value);
+    }
+
+    public void add(double value) {
+        list.add(value);
+    }
+
+    public void add(String value) {
+        list.add(value);
     }
 
 }
