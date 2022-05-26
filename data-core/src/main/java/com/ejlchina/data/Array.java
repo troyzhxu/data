@@ -66,7 +66,7 @@ public interface Array extends DataSet {
 	 * @since 2.5.1
 	 * @param consumer 消费者
 	 */
-	default void forEach(BiConsumer<Integer, Data> consumer) {
+	default void doEach(BiConsumer<Integer, Data> consumer) {
 		for (int i = 0; i < size(); i++) {
 			int index = i;
 			consumer.accept(i, new Data() {
@@ -125,32 +125,32 @@ public interface Array extends DataSet {
 		int size = size();
 		if (type == Boolean.class || type == boolean.class) {
 			List<Boolean> list = new ArrayList<>(size);
-			forEach((i, data) -> list.add(data.toBool()));
+			doEach((i, data) -> list.add(data.toBool()));
 			return (List<T>) list;
 		}
 		if (type == Integer.class || type == int.class) {
 			List<Integer> list = new ArrayList<>(size);
-			forEach((i, data) -> list.add(data.toInt()));
+			doEach((i, data) -> list.add(data.toInt()));
 			return (List<T>) list;
 		}
 		if (type == Long.class || type == long.class) {
 			List<Long> list = new ArrayList<>(size);
-			forEach((i, data) -> list.add(data.toLong()));
+			doEach((i, data) -> list.add(data.toLong()));
 			return (List<T>) list;
 		}
 		if (type == Float.class || type == float.class) {
 			List<Float> list = new ArrayList<>(size);
-			forEach((i, data) -> list.add(data.toFloat()));
+			doEach((i, data) -> list.add(data.toFloat()));
 			return (List<T>) list;
 		}
 		if (type == Double.class || type == double.class) {
 			List<Double> list = new ArrayList<>(size);
-			forEach((i, data) -> list.add(data.toDouble()));
+			doEach((i, data) -> list.add(data.toDouble()));
 			return (List<T>) list;
 		}
 		if (type == String.class) {
 			List<String> list = new ArrayList<>(size);
-			forEach((i, data) -> list.add(data.toString()));
+			doEach((i, data) -> list.add(data.toString()));
 			return (List<T>) list;
 		}
 		List<T> list = new ArrayList<>(size);
