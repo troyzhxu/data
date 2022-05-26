@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
 
+import java.util.List;
+
 public class FastjsonArray implements Array {
 
 	private final JSONArray json;
@@ -74,6 +76,11 @@ public class FastjsonArray implements Array {
 	@Override
 	public String toString() {
 		return json.toJSONString();
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type) {
+		return json.toJavaList(type);
 	}
 
 }
