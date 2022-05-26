@@ -2,16 +2,21 @@ package com.ejlchina.data.gson;
 
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
+import com.ejlchina.data.TypeRef;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.lang.reflect.Type;
 import java.util.Set;
 
 public class GsonMapper implements Mapper {
 
+	private final Gson gson;
 	private final JsonObject json;
 	
-	public GsonMapper(JsonObject json) {
+	public GsonMapper(Gson gson, JsonObject json) {
+		this.gson = gson;
 		this.json = json;
 	}
 
@@ -29,7 +34,7 @@ public class GsonMapper implements Mapper {
 	public Mapper getMapper(String key) {
 		JsonElement subJson = json.get(key);
 		if (subJson != null && subJson.isJsonObject()) {
-			return new GsonMapper(subJson.getAsJsonObject());
+			return new GsonMapper(gson, subJson.getAsJsonObject());
 		}
 		return null;
 	}
@@ -38,7 +43,7 @@ public class GsonMapper implements Mapper {
 	public Array getArray(String key) {
 		JsonElement subJson = json.get(key);
 		if (subJson != null && subJson.isJsonArray()) {
-			return new GsonArray(subJson.getAsJsonArray());
+			return new GsonArray(gson, subJson.getAsJsonArray());
 		}
 		return null;
 	}
@@ -95,6 +100,21 @@ public class GsonMapper implements Mapper {
 			return val.getAsString();
 		}
 		return null;
+	}
+
+	@Override
+	public <T> T toBean(Type type) {
+		return gson.fromJson(json, type);
+	}
+
+	@Override
+	public <T> T toBean(Class<T> type) {
+		return gson.fromJson(json, type);
+	}
+
+	@Override
+	public <T> T toBean(TypeRef<T> type) {
+		return gson.fromJson(json, type.getType());
 	}
 
 	@Override

@@ -2,14 +2,21 @@ package com.ejlchina.data.gson;
 
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class GsonArray implements Array {
 
+	private final Gson gson;
 	private final JsonArray json;
 	
-	public GsonArray(JsonArray json) {
+	public GsonArray(Gson gson, JsonArray json) {
+		this.gson = gson;
 		this.json = json;
 	}
 
@@ -27,7 +34,7 @@ public class GsonArray implements Array {
 	public Mapper getMapper(int index) {
 		JsonElement subJson = json.get(index);
 		if (subJson != null && subJson.isJsonObject()) {
-			return new GsonMapper(subJson.getAsJsonObject());
+			return new GsonMapper(gson, subJson.getAsJsonObject());
 		}
 		return null;
 	}
@@ -36,7 +43,7 @@ public class GsonArray implements Array {
 	public Array getArray(int index) {
 		JsonElement subJson = json.get(index);
 		if (subJson != null && subJson.isJsonArray()) {
-			return new GsonArray(subJson.getAsJsonArray());
+			return new GsonArray(gson, subJson.getAsJsonArray());
 		}
 		return null;
 	}
@@ -93,6 +100,12 @@ public class GsonArray implements Array {
 			return val.getAsString();
 		}
 		return null;
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type) {
+		T[] beans = gson.fromJson(json, TypeToken.getArray(type).getType());
+		return Arrays.asList(beans);
 	}
 
 	@Override

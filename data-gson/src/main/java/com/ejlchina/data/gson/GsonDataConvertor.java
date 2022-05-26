@@ -29,22 +29,22 @@ public class GsonDataConvertor implements DataConvertor {
 
 	@Override
 	public Mapper toMapper(InputStream in, Charset charset) {
-		return new GsonMapper(gson.fromJson(new InputStreamReader(in, charset), JsonObject.class));
+		return new GsonMapper(gson, gson.fromJson(new InputStreamReader(in, charset), JsonObject.class));
 	}
 
 	@Override
 	public Mapper toMapper(String in) {
-		return new GsonMapper(gson.fromJson(in, JsonObject.class));
+		return new GsonMapper(gson, gson.fromJson(in, JsonObject.class));
 	}
 
 	@Override
 	public Array toArray(InputStream in, Charset charset) {
-		return new GsonArray(gson.fromJson(new InputStreamReader(in, charset), JsonArray.class));
+		return new GsonArray(gson, gson.fromJson(new InputStreamReader(in, charset), JsonArray.class));
 	}
 
 	@Override
 	public Array toArray(String in) {
-		return new GsonArray(gson.fromJson(in, JsonArray.class));
+		return new GsonArray(gson, gson.fromJson(in, JsonArray.class));
 	}
 
 	@Override
