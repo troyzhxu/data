@@ -51,7 +51,7 @@ public class JacksonDataConvertor implements DataConvertor {
 
 	private Mapper toMapper(JsonNode json) {
 		if (json.isObject()) {
-			return new JacksonMapper((ObjectNode) json);
+			return new JacksonMapper(objectMapper, (ObjectNode) json);
 		}
 		if (json.isNull() || json.isMissingNode()) {
 			return null;
@@ -79,7 +79,7 @@ public class JacksonDataConvertor implements DataConvertor {
 
 	private Array toArray(JsonNode json) {
 		if (json.isArray()) {
-			return new JacksonArray((ArrayNode) json);
+			return new JacksonArray(objectMapper, (ArrayNode) json);
 		}
 		if (json.isNull() || json.isMissingNode()) {
 			return null;

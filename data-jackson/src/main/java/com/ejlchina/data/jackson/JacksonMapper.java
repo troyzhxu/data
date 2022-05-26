@@ -2,19 +2,27 @@ package com.ejlchina.data.jackson;
 
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
+import com.ejlchina.data.TypeRef;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class JacksonMapper implements Mapper {
 
+	private final ObjectMapper om;
 	private final ObjectNode json;
 	
-	public JacksonMapper(ObjectNode json) {
+	public JacksonMapper(ObjectMapper om, ObjectNode json) {
+		this.om = om;
 		this.json = json;
 	}
 
@@ -32,7 +40,7 @@ public class JacksonMapper implements Mapper {
 	public Mapper getMapper(String key) {
 		JsonNode subJson = json.get(key);
 		if (subJson != null && subJson.isObject()) {
-			return new JacksonMapper((ObjectNode) subJson);
+			return new JacksonMapper(om, (ObjectNode) subJson);
 		}
 		return null;
 	}
@@ -41,7 +49,7 @@ public class JacksonMapper implements Mapper {
 	public Array getArray(String key) {
 		JsonNode subJson = json.get(key);
 		if (subJson != null && subJson.isArray()) {
-			return new JacksonArray((ArrayNode) subJson);
+			return new JacksonArray(om, (ArrayNode) subJson);
 		}
 		return null;
 	}
@@ -101,6 +109,34 @@ public class JacksonMapper implements Mapper {
 			return null;
 		}
 		return subJson.asText();
+	}
+
+	@Override
+	public <T> T toBean(Class<T> type) {
+		try {
+			return om.treeToValue(json, type);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public <T> T toBean(Type type) {
+		try {
+			return om.readValue(om.treeAsTokens(json), new TypeReference<T>() {
+				@Override
+				public Type getType() {
+					return type;
+				}
+			});
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public <T> T toBean(TypeRef<T> type) {
+		return toBean(type.getType());
 	}
 
 	@Override

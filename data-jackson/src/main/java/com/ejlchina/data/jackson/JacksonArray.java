@@ -2,15 +2,23 @@ package com.ejlchina.data.jackson;
 
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.type.CollectionType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JacksonArray implements Array {
 
+	private final ObjectMapper om;
 	private final ArrayNode json;
 	
-	public JacksonArray(ArrayNode json) {
+	public JacksonArray(ObjectMapper om, ArrayNode json) {
+		this.om = om;
 		this.json = json;
 	}
 	
@@ -28,7 +36,7 @@ public class JacksonArray implements Array {
 	public Mapper getMapper(int index) {
 		JsonNode subJson = json.get(index);
 		if (subJson != null && subJson.isObject()) {
-			return new JacksonMapper((ObjectNode) subJson);
+			return new JacksonMapper(om, (ObjectNode) subJson);
 		}
 		return null;
 	}
@@ -37,7 +45,7 @@ public class JacksonArray implements Array {
 	public Array getArray(int index) {
 		JsonNode subJson = json.get(index);
 		if (subJson != null && subJson.isArray()) {
-			return new JacksonArray((ArrayNode) subJson);
+			return new JacksonArray(om, (ArrayNode) subJson);
 		}
 		return null;
 	}
@@ -97,6 +105,16 @@ public class JacksonArray implements Array {
 			return null;
 		}
 		return subJson.asText();
+	}
+
+	@Override
+	public <T> List<T> toList(Class<T> type) {
+		CollectionType listType = om.getTypeFactory().constructCollectionType(ArrayList.class, type);
+		try {
+			return om.treeToValue(json, listType);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
