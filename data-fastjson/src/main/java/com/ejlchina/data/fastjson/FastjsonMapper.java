@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
+import com.ejlchina.data.TypeRef;
 
+import java.lang.reflect.Type;
 import java.util.Set;
 
 public class FastjsonMapper implements Mapper {
@@ -86,6 +88,21 @@ public class FastjsonMapper implements Mapper {
 	@Override
 	public String toString() {
 		return json.toJSONString();
+	}
+
+	@Override
+	public <T> T toBean(Type type) {
+		return json.toJavaObject(type);
+	}
+
+	@Override
+	public <T> T toBean(Class<T> type) {
+		return json.toJavaObject(type);
+	}
+
+	@Override
+	public <T> T toBean(TypeRef<T> type) {
+		return json.toJavaObject(type.getType());
 	}
 
 }
