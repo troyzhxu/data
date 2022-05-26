@@ -25,7 +25,7 @@ public class JacksonMapper implements Mapper {
 
 	@Override
 	public boolean isEmpty() {
-		return json.isEmpty();
+		return json.size() == 0;
 	}
 
 	@Override
