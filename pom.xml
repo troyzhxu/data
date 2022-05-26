@@ -12,6 +12,8 @@
 		<module>data-core</module>
 		<module>data-gson</module>
 		<module>data-jackson</module>
+		<module>data-jackson-xml</module>
+		<module>data-jackson-yaml</module>
 		<module>data-fastjson</module>
 		<module>data-xml</module>
 	</modules>
