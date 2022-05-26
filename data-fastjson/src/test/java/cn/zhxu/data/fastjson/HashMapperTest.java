@@ -1,6 +1,7 @@
 package cn.zhxu.data.fastjson;
 
 import com.ejlchina.data.DataConvertor;
+import com.ejlchina.data.DataSet;
 import com.ejlchina.data.HashMapper;
 import com.ejlchina.data.fastjson.FastjsonDataConvertor;
 import org.junit.Test;
@@ -18,6 +19,11 @@ public class HashMapperTest {
         user.put("name", "Jack");
         user.put("age", 25);
         user.put("school", school);
+
+        user.doEach((String key, DataSet.Data data) -> {
+            System.out.println(key + " = " + data.toString());
+        });
+
         String json = convertor.serialize(user);
         System.out.println(json);
     }
