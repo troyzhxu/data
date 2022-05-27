@@ -16,6 +16,7 @@
 		<module>data-jackson-yaml</module>
 		<module>data-fastjson</module>
 		<module>data-fastjson2</module>
+		<module>data-fastjson2-jsonb</module>
 		<module>data-xml</module>
 	</modules>
 
