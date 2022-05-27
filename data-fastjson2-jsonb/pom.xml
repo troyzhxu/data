@@ -17,6 +17,12 @@
 			<artifactId>data-fastjson2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.ejlchina</groupId>
+			<artifactId>data-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

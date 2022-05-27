@@ -22,6 +22,12 @@
 			<artifactId>fastjson2</artifactId>
 			<version>${fastjson2.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.ejlchina</groupId>
+			<artifactId>data-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
