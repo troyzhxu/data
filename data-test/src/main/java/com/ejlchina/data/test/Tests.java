@@ -47,17 +47,18 @@ public abstract class Tests {
     static final User user1 = new User(101001, "Jack", new School(101, "清华"), false);
     static final User user2 = new User(102002, "Alice", new School(102, "北大"), true);
 
-    static final List<User> userList = new ArrayList<>() {{
-        add(user1);
-        add(user2);
-    }};
+    static final List<User> userList = new ArrayList<>();
+    static final List<Object> objectList = new ArrayList<>();
 
-    static final List<Object> objectList = new ArrayList<>() {{
-        add(user1);
-        add(user2);
-        add("Hello");
-        add(100);
-    }};
+    static {
+        userList.add(user1);
+        userList.add(user2);
+        objectList.add(user1);
+        objectList.add(user2);
+        objectList.add("Hello");
+        objectList.add(100);
+    }
+
 
 //    static final Result<User> userResult = new Result<>(200, "ok", user1);
 //    static final Result<List<User>> listResult = new Result<>(200, "ok", userList);
