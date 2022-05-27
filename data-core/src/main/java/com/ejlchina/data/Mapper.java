@@ -130,10 +130,7 @@ public interface Mapper extends DataSet {
 	 * @return JavaBean
 	 * @since v1.2.0
 	 */
-	@SuppressWarnings("unchecked")
-	default <T> T toBean(Class<T> type) {
-		return (T) Deserializer.getInstance().deserialize(this, type);
-	}
+	<T> T toBean(Class<T> type);
 
 	/**
 	 * @param <T> 目标泛型
@@ -141,10 +138,7 @@ public interface Mapper extends DataSet {
 	 * @return JavaBean
 	 * @since v1.2.0
 	 */
-	@SuppressWarnings("unchecked")
-	default <T> T toBean(Type type) {
-		return (T) Deserializer.getInstance().deserialize(this, type);
-	}
+	<T> T toBean(Type type);
 
 	/**
 	 * @param <T> 目标泛型
@@ -152,9 +146,6 @@ public interface Mapper extends DataSet {
 	 * @return JavaBean
 	 * @since v1.2.0
 	 */
-	@SuppressWarnings("unchecked")
-	default <T> T toBean(TypeRef<T> type) {
-		return (T) Deserializer.getInstance().deserialize(this, type.getType());
-	}
+	<T> T toBean(TypeRef<T> type);
 
 }

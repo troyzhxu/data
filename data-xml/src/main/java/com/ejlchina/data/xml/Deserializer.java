@@ -1,4 +1,7 @@
-package com.ejlchina.data;
+package com.ejlchina.data.xml;
+
+import com.ejlchina.data.Array;
+import com.ejlchina.data.Mapper;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;

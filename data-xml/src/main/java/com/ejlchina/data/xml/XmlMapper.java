@@ -2,6 +2,7 @@ package com.ejlchina.data.xml;
 
 import com.ejlchina.data.Array;
 import com.ejlchina.data.Mapper;
+import com.ejlchina.data.TypeRef;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Attr;
@@ -10,6 +11,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,6 +125,44 @@ public class XmlMapper implements Mapper {
         }
         return set;
     }
+
+
+    /**
+     * @param <T> 目标泛型
+     * @param type 目标类型
+     * @return JavaBean
+     * @since v1.2.0
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T toBean(Class<T> type) {
+        return (T) Deserializer.getInstance().deserialize(this, type);
+    }
+
+    /**
+     * @param <T> 目标泛型
+     * @param type 目标类型
+     * @return JavaBean
+     * @since v1.2.0
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T toBean(Type type) {
+        return (T) Deserializer.getInstance().deserialize(this, type);
+    }
+
+    /**
+     * @param <T> 目标泛型
+     * @param type 目标类型
+     * @return JavaBean
+     * @since v1.2.0
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T toBean(TypeRef<T> type) {
+        return (T) Deserializer.getInstance().deserialize(this, type.getType());
+    }
+
 
     @Override
     public String toString() {

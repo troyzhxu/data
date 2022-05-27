@@ -2,7 +2,6 @@ package com.ejlchina.data.xml;
 
 import com.ejlchina.data.Array;
 import com.ejlchina.data.DataConvertor;
-import com.ejlchina.data.Deserializer;
 import com.ejlchina.data.Mapper;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;

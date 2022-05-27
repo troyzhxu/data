@@ -8,6 +8,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class XmlArray implements Array {
@@ -117,6 +118,48 @@ public class XmlArray implements Array {
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public  <T> List<T> toList(Class<T> type) {
+        int size = size();
+        if (type == Boolean.class || type == boolean.class) {
+            List<Boolean> list = new ArrayList<>(size);
+            doEach((i, data) -> list.add(data.toBool()));
+            return (List<T>) list;
+        }
+        if (type == Integer.class || type == int.class) {
+            List<Integer> list = new ArrayList<>(size);
+            doEach((i, data) -> list.add(data.toInt()));
+            return (List<T>) list;
+        }
+        if (type == Long.class || type == long.class) {
+            List<Long> list = new ArrayList<>(size);
+            doEach((i, data) -> list.add(data.toLong()));
+            return (List<T>) list;
+        }
+        if (type == Float.class || type == float.class) {
+            List<Float> list = new ArrayList<>(size);
+            doEach((i, data) -> list.add(data.toFloat()));
+            return (List<T>) list;
+        }
+        if (type == Double.class || type == double.class) {
+            List<Double> list = new ArrayList<>(size);
+            doEach((i, data) -> list.add(data.toDouble()));
+            return (List<T>) list;
+        }
+        if (type == String.class) {
+            List<String> list = new ArrayList<>(size);
+            doEach((i, data) -> list.add(data.toString()));
+            return (List<T>) list;
+        }
+        List<T> list = new ArrayList<>(size);
+        for (int index = 0; index < size; index++) {
+            Mapper m = getMapper(index);
+            list.add(m != null ? m.toBean(type) : null);
+        }
+        return list;
     }
 
 }
