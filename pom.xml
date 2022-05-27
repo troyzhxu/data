@@ -15,6 +15,7 @@
 		<module>data-jackson-xml</module>
 		<module>data-jackson-yaml</module>
 		<module>data-fastjson</module>
+		<module>data-fastjson2</module>
 		<module>data-xml</module>
 	</modules>
 
@@ -22,6 +23,7 @@
 		<java-version>1.8</java-version>
 		<gson.version>2.9.0</gson.version>
 		<fastjson.version>1.2.83</fastjson.version>
+		<fastjson2.version>2.0.4</fastjson2.version>
 		<jackson.version>2.13.3</jackson.version>
 		<junit.version>4.13.2</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
