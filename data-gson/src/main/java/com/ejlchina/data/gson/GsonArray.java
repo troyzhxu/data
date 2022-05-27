@@ -109,6 +109,11 @@ public class GsonArray implements Array {
 	}
 
 	@Override
+	public List<Object> toList() {
+		return new GsonList(json);
+	}
+
+	@Override
 	public String toString() {
 		return json.toString();
 	}

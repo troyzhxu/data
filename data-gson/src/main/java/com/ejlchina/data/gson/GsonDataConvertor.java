@@ -3,9 +3,7 @@ package com.ejlchina.data.gson;
 import com.ejlchina.data.Array;
 import com.ejlchina.data.DataConvertor;
 import com.ejlchina.data.Mapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStream;
@@ -88,6 +86,36 @@ public class GsonDataConvertor implements DataConvertor {
 
 	public void setGson(Gson gson) {
 		this.gson = gson;
+	}
+
+	/**
+	 * 将 JsonElement 转换为正常 List 和 Map 或基本类型的 对象
+	 * @param value JsonElement
+	 * @return PlainObject
+	 * @since v1.5.0
+	 */
+	public static Object toPlainObject(JsonElement value) {
+		if (value != null) {
+			if (value.isJsonObject()) {
+				return new GsonMap((JsonObject) value);
+			}
+			if (value.isJsonArray()) {
+				return new GsonList((JsonArray) value);
+			}
+			if (value.isJsonPrimitive()) {
+				JsonPrimitive p = (JsonPrimitive) value;
+				if (p.isBoolean()) {
+					return p.getAsBoolean();
+				}
+				if (p.isString()) {
+					return p.getAsString();
+				}
+				if (p.isNumber()) {
+					return p.getAsNumber();
+				}
+			}
+		}
+		return null;
 	}
 
 }

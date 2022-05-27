@@ -7,6 +7,7 @@ import com.ejlchina.data.Mapper;
 import com.ejlchina.data.TypeRef;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.Set;
 
 public class Fastjson2Mapper implements Mapper {
@@ -107,6 +108,11 @@ public class Fastjson2Mapper implements Mapper {
 	@Override
 	public <T> T toBean(TypeRef<T> type) {
 		return json.to(type.getType());
+	}
+
+	@Override
+	public Map<String, Object> toMap() {
+		return json;
 	}
 
 }

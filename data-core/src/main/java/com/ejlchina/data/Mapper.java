@@ -1,6 +1,7 @@
 package com.ejlchina.data;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -147,5 +148,12 @@ public interface Mapper extends DataSet {
 	 * @since v1.2.0
 	 */
 	<T> T toBean(TypeRef<T> type);
+
+	/**
+	 * 转换为 Map 对象
+	 * @return Map 对象
+	 * @since v1.5.0
+	 */
+	Map<String, Object> toMap();
 
 }

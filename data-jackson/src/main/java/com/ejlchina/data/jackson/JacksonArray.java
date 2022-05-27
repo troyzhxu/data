@@ -118,6 +118,11 @@ public class JacksonArray implements Array {
 	}
 
 	@Override
+	public List<Object> toList() {
+		return new JacksonList(json);
+	}
+
+	@Override
 	public String toString() {
 		return json.toString();
 	}

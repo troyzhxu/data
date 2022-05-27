@@ -121,4 +121,11 @@ public interface Array extends DataSet {
 	 */
 	<T> List<T> toList(Class<T> type);
 
+	/**
+	 * 转换为 List 对象
+	 * @return List 对象
+	 * @since v1.5.0
+	 */
+	List<Object> toList();
+
 }

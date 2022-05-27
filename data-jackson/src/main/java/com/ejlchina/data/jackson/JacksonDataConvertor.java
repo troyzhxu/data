@@ -151,6 +151,49 @@ public class JacksonDataConvertor implements DataConvertor {
 		return objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
 	}
 
+
+	/**
+	 * 将 JsonElement 转换为正常 List 和 Map 或基本类型的 对象
+	 * @param value JsonElement
+	 * @return PlainObject
+	 * @since v1.5.0
+	 */
+	public static Object toPlainObject(JsonNode value) {
+		if (value != null) {
+			if (value.isObject()) {
+				return new JacksonMap((ObjectNode) value);
+			}
+			if (value.isArray()) {
+				return new JacksonList((ArrayNode) value);
+			}
+			if (value.isBoolean()) {
+				return value.asBoolean();
+			}
+			if (value.isTextual()) {
+				return value.asText();
+			}
+			if (value.isInt()) {
+				return value.asInt();
+			}
+			if (value.isLong()) {
+				return value.asLong();
+			}
+			if (value.isFloat()) {
+				return value.floatValue();
+			}
+			if (value.isDouble()) {
+				return value.asDouble();
+			}
+			if (value.isBigDecimal()) {
+				return value.decimalValue();
+			}
+			if (value.isBigInteger()) {
+				return value.bigIntegerValue();
+			}
+		}
+		return null;
+	}
+
 	public ObjectMapper getObjectMapper() {
 		return objectMapper;
 	}

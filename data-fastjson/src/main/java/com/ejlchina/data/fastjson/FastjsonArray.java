@@ -83,4 +83,9 @@ public class FastjsonArray implements Array {
 		return json.toJavaList(type);
 	}
 
+	@Override
+	public List<Object> toList() {
+		return json;
+	}
+
 }

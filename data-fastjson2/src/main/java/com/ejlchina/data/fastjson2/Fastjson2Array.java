@@ -87,4 +87,9 @@ public class Fastjson2Array implements Array {
 		return json.toList(type);
 	}
 
+	@Override
+	public List<Object> toList() {
+		return json;
+	}
+
 }

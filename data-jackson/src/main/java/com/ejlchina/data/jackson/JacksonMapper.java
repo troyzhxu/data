@@ -12,9 +12,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class JacksonMapper implements Mapper {
 
@@ -140,6 +138,11 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
+	public Map<String, Object> toMap() {
+		return new JacksonMap(json);
+	}
+
+	@Override
 	public boolean has(String key) {
 		return json.has(key);
 	}
@@ -147,11 +150,18 @@ public class JacksonMapper implements Mapper {
 	@Override
 	public Set<String> keySet() {
 		Iterator<String> it = json.fieldNames();
-		Set<String> set = new HashSet<>();
-		while (it.hasNext()) {
-			set.add(it.next());
-		}
-		return set;
+		return new AbstractSet<>() {
+
+			@Override
+			public Iterator<String> iterator() {
+				return it;
+			}
+
+			@Override
+			public int size() {
+				return json.size();
+			}
+		};
 	}
 
 	@Override

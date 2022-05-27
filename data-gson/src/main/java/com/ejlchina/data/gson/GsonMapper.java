@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.Set;
 
 public class GsonMapper implements Mapper {
@@ -115,6 +116,11 @@ public class GsonMapper implements Mapper {
 	@Override
 	public <T> T toBean(TypeRef<T> type) {
 		return gson.fromJson(json, type.getType());
+	}
+
+	@Override
+	public Map<String, Object> toMap() {
+		return new GsonMap(json);
 	}
 
 	@Override
