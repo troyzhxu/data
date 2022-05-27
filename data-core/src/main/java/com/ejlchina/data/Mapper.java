@@ -78,7 +78,7 @@ public interface Mapper extends DataSet {
 	 * @since 2.5.1
 	 * @param consumer 消费者
 	 */
-	default void doEach(BiConsumer<String, Data> consumer) {
+	default void forEach(BiConsumer<String, Data> consumer) {
 		for (String key: keySet()) {
 			consumer.accept(key, new Data() {
 				@Override

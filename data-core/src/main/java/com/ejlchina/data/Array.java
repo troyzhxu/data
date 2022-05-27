@@ -65,7 +65,7 @@ public interface Array extends DataSet {
 	 * @since 2.5.1
 	 * @param consumer 消费者
 	 */
-	default void doEach(BiConsumer<Integer, Data> consumer) {
+	default void forEach(BiConsumer<Integer, Data> consumer) {
 		for (int i = 0; i < size(); i++) {
 			int index = i;
 			consumer.accept(i, new Data() {
