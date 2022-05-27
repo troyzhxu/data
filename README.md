@@ -2,7 +2,7 @@
 
 <p>
     <a href="https://maven-badges.herokuapp.com/maven-central/com.ejlchina/data/"><img src="https://maven-badges.herokuapp.com/maven-central/com.ejlchina/data/badge.svg" alt="Maven Central"></a>
-    <a href="https://gitee.com/ejlchina-zhxu/jsonkit/blob/master/LICENSE"><img src="https://img.shields.io/hexpm/l/plug.svg" alt="License"></a>
+    <a href="https://gitee.com/troyzhxu/jsonkit/blob/master/LICENSE"><img src="https://img.shields.io/hexpm/l/plug.svg" alt="License"></a>
     <a href="https://github.com/ejlchina"><img src="https://img.shields.io/badge/%E4%BD%9C%E8%80%85-ejlchina-orange.svg" alt="Troy.Zhou"></a>
 </p>
 
@@ -16,7 +16,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-core</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-fastjson</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-gson</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -46,7 +46,7 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-jackson</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -56,15 +56,15 @@
 <dependency>
     <groupId>com.ejlchina</groupId>
     <artifactId>data-xml</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
 ### 衍生项目
 
-* [**[ OkHttps ]**](https://gitee.com/ejlchina-zhxu/okhttps) - 轻量却强大的 HTTP 客户端，前后端通用，支持 WebSocket 与 Stomp 协议
+* [**[ OkHttps ]**](https://gitee.com/troyzhxu/okhttps) - 轻量却强大的 HTTP 客户端，前后端通用，支持 WebSocket 与 Stomp 协议
 
-* [**[ Json Kit ]**](https://gitee.com/ejlchina-zhxu/jsonkit) - 超轻量级 JSON 门面工具，用法简单，不依赖具体实现，让业务代码与 Jackson、Gson、Fastjson 等解耦！
+* [**[ Json Kit ]**](https://gitee.com/troyzhxu/jsonkit) - 超轻量级 JSON 门面工具，用法简单，不依赖具体实现，让业务代码与 Jackson、Gson、Fastjson 等解耦！
 
 ### 友情链接
 
