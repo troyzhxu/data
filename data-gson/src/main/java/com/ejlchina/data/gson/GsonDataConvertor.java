@@ -111,7 +111,23 @@ public class GsonDataConvertor implements DataConvertor {
 					return p.getAsString();
 				}
 				if (p.isNumber()) {
-					return p.getAsNumber();
+					Number num = p.getAsNumber();
+					if (num instanceof Integer || num instanceof Long
+							|| num instanceof Double || num instanceof Float
+							|| num instanceof Short || num instanceof Byte) {
+						return num;
+					}
+					String str = num.toString();
+					if (str.indexOf('.') >= 0) {
+						if (str.length() > 8) {
+							return Double.parseDouble(str);
+						}
+						return Float.parseFloat(str);
+					}
+					if (str.length() > 8) {
+						return Long.parseLong(str);
+					}
+					return Integer.parseInt(str);
 				}
 			}
 		}
