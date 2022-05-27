@@ -3,7 +3,7 @@
 
 	<groupId>com.ejlchina</groupId>
 	<artifactId>data</artifactId>
-	<version>1.4.1</version>
+	<version>1.5.0</version>
 	<name>Data</name>
 
 	<packaging>pom</packaging>
@@ -48,10 +48,10 @@
 	</developers>
 	
 	<scm>
-		<connection>scm:git://gitee.com/ejlchina-zhxu/data.git</connection>
-		<developerConnection>scm:http://gitee.com/ejlchina-zhxu/data</developerConnection>
-		<url>https://gitee.com/ejlchina-zhxu/data</url>
-		<tag>v1.4.1</tag>
+		<connection>scm:git://gitee.com/troyzhxu/data.git</connection>
+		<developerConnection>scm:http://gitee.com/troyzhxu/data</developerConnection>
+		<url>https://gitee.com/troyzhxu/data</url>
+		<tag>v1.5.0</tag>
 	</scm>
 	
 	<dependencies>
@@ -185,14 +185,14 @@
         </plugins>
 	</build>
   
-	<url>https://gitee.com/ejlchina-zhxu/data</url>
+	<url>https://gitee.com/troyzhxu/data</url>
 	<description>提供 JSON、XML 等结构化数据的统一抽象 API</description>
 	<organization>
 		<name>江苏一键联信息科技有限公司</name>
 		<url>http://www.ejlchina.com/</url>
 	</organization>
 	<issueManagement>
-		<url>https://gitee.com/ejlchina-zhxu/data/issues</url>
+		<url>https://gitee.com/troyzhxu/data/issues</url>
 	</issueManagement>
 
 </project>
