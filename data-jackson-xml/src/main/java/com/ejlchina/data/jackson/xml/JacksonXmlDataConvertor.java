@@ -1,4 +1,4 @@
-package com.ejlchina.data.jacksonxml;
+package com.ejlchina.data.jackson.xml;
 
 import com.ejlchina.data.jackson.JacksonDataConvertor;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
