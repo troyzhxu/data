@@ -78,6 +78,10 @@ public class Fastjson2Array implements Array {
 		return json.toJSONString();
 	}
 
+	public byte[] toJSONBBytes() {
+		return json.toJSONBBytes();
+	}
+
 	@Override
 	public <T> List<T> toList(Class<T> type) {
 		return json.toList(type);

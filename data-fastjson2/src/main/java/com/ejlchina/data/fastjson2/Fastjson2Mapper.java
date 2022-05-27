@@ -90,6 +90,10 @@ public class Fastjson2Mapper implements Mapper {
 		return json.toJSONString();
 	}
 
+	public byte[] toJSONBBytes() {
+		return json.toJSONBBytes();
+	}
+
 	@Override
 	public <T> T toBean(Type type) {
 		return json.to(type);
