@@ -18,6 +18,7 @@
 		<module>data-fastjson2</module>
 		<module>data-fastjson2-jsonb</module>
 		<module>data-xml</module>
+		<module>data-test</module>
 	</modules>
 
 	<properties>

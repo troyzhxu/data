@@ -4,7 +4,7 @@ import com.ejlchina.data.DataConvertor;
 import com.ejlchina.data.DataSet;
 import com.ejlchina.data.HashMapper;
 import com.ejlchina.data.fastjson.FastjsonDataConvertor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HashMapperTest {
 
