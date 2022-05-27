@@ -92,17 +92,17 @@ public class Fastjson2Mapper implements Mapper {
 
 	@Override
 	public <T> T toBean(Type type) {
-		return json.toJavaObject(type);
+		return json.to(type);
 	}
 
 	@Override
 	public <T> T toBean(Class<T> type) {
-		return json.toJavaObject(type);
+		return json.to(type);
 	}
 
 	@Override
 	public <T> T toBean(TypeRef<T> type) {
-		return json.toJavaObject(type.getType());
+		return json.to(type.getType());
 	}
 
 }

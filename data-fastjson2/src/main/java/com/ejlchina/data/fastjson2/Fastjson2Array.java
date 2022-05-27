@@ -80,7 +80,7 @@ public class Fastjson2Array implements Array {
 
 	@Override
 	public <T> List<T> toList(Class<T> type) {
-		return json.toJavaList(type);
+		return json.toList(type);
 	}
 
 }
