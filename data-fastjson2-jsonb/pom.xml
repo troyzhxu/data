@@ -20,7 +20,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>data-fastjson</finalName>
+		<finalName>data-fastjson2-jsonb</finalName>
 	</build>
 
 </project>

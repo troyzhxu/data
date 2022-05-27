@@ -25,7 +25,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>data-xml</finalName>
+		<finalName>data-jackson-yaml</finalName>
 	</build>
 
 </project>
