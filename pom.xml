@@ -22,7 +22,7 @@
 	</modules>
 
 	<properties>
-		<java-version>11</java-version>
+		<java-version>8</java-version>
 		<gson.version>2.9.0</gson.version>
 		<snack3.version>3.2.31</snack3.version>
 		<fastjson.version>1.2.83</fastjson.version>
@@ -114,9 +114,8 @@
 						<id>default-compile</id>
 						<configuration>
 							<jdkToolchain>
-								<version>11</version>
+								<version>8</version>
 							</jdkToolchain>
-							<release>11</release>
 						</configuration>
 					</execution>
 					<execution>

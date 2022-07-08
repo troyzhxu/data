@@ -24,12 +24,12 @@ public class JacksonMap extends AbstractMap<String, Object> {
     @Override
     public Set<Entry<String, Object>> entrySet() {
         if (entrySet == null) {
-            entrySet = new AbstractSet<>() {
+            entrySet = new AbstractSet<Entry<String, Object>>() {
 
                 @Override
                 public Iterator<Entry<String, Object>> iterator() {
                     Iterator<String> keyIt = json.fieldNames();
-                    return new Iterator<>() {
+                    return new Iterator<Entry<String, Object>>() {
 
                         @Override
                         public boolean hasNext() {

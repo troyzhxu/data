@@ -16,8 +16,7 @@ public class Snack3Array implements Array {
 
 	public Snack3Array(ONode json) {
 		this.json = json;
-
-		if (json.isArray() == false) {
+		if (!json.isArray()) {
 			throw new IllegalArgumentException("illegal json array type");
 		}
 	}

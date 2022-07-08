@@ -150,7 +150,7 @@ public class JacksonMapper implements Mapper {
 	@Override
 	public Set<String> keySet() {
 		Iterator<String> it = json.fieldNames();
-		return new AbstractSet<>() {
+		return new AbstractSet<String>() {
 
 			@Override
 			public Iterator<String> iterator() {
