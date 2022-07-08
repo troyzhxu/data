@@ -14,6 +14,7 @@
 		<module>data-jackson</module>
 		<module>data-jackson-xml</module>
 		<module>data-jackson-yaml</module>
+		<module>data-snack3</module>
 		<module>data-fastjson</module>
 		<module>data-fastjson2</module>
 		<module>data-fastjson2-jsonb</module>
@@ -23,6 +24,7 @@
 	<properties>
 		<java-version>11</java-version>
 		<gson.version>2.9.0</gson.version>
+		<snack3.version>3.2.31</snack3.version>
 		<fastjson.version>1.2.83</fastjson.version>
 		<fastjson2.version>2.0.4</fastjson2.version>
 		<jackson.version>2.13.3</jackson.version>
