@@ -1,4 +1,4 @@
-package com.ejlchina.data.fastjson2;
+package com.ejlchina.data.snack3;
 
 import com.ejlchina.data.test.JsonTests;
 import org.junit.jupiter.api.Test;
@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
  * @author Troy.Zhou @ 2022/5/27
  * @since v
  */
-public class TestCase {
+public class Snack3Tests {
 
     @Test
     public void test() {
-        new JsonTests(new Fastjson2DataConvertor()).run();
+        new JsonTests(new Snack3DataConvertor()).run();
     }
 
 }

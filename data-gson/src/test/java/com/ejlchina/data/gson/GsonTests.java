@@ -1,4 +1,4 @@
-package com.ejlchina.data.snack3;
+package com.ejlchina.data.gson;
 
 import com.ejlchina.data.test.JsonTests;
 import org.junit.jupiter.api.Test;
@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
  * @author Troy.Zhou @ 2022/5/27
  * @since v
  */
-public class TestCase {
+public class GsonTests {
 
     @Test
-    public void test() {
-        new JsonTests(new Snack3DataConvertor()).run();
+    public void doTest() {
+        new JsonTests(new GsonDataConvertor()).run();
     }
 
 }

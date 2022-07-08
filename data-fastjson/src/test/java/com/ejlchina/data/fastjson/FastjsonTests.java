@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
  * @author Troy.Zhou @ 2022/5/27
  * @since v
  */
-public class TestCase {
+public class FastjsonTests {
 
     @Test
     public void test() {
