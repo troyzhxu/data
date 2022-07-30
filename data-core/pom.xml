@@ -6,7 +6,7 @@
   	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>com.ejlchina</groupId>
+		<groupId>cn.zhxu</groupId>
 		<artifactId>data</artifactId>
 		<version>1.5.0</version>
 	</parent>

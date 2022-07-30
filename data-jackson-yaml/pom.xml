@@ -6,14 +6,14 @@
   	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>com.ejlchina</groupId>
+		<groupId>cn.zhxu</groupId>
 		<artifactId>data</artifactId>
 		<version>1.5.0</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.ejlchina</groupId>
+			<groupId>cn.zhxu</groupId>
 			<artifactId>data-jackson</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -23,7 +23,7 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ejlchina</groupId>
+			<groupId>cn.zhxu</groupId>
 			<artifactId>data-test</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
