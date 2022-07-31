@@ -36,7 +36,7 @@ public class JacksonDataConvertor implements DataConvertor {
 		try {
 			return toMapper(objectMapper.readTree(new InputStreamReader(in, charset)));
 		} catch (IOException e) {
-			throw new IllegalStateException("Jackson 解析异常", e);
+			throw new IllegalArgumentException("Jackson 解析异常", e);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class JacksonDataConvertor implements DataConvertor {
 		try {
 			return toMapper(objectMapper.readTree(in));
 		} catch (IOException e) {
-			throw new IllegalStateException("Jackson 解析异常", e);
+			throw new IllegalArgumentException("Jackson 解析异常", e);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class JacksonDataConvertor implements DataConvertor {
 		if (json.isNull() || json.isMissingNode()) {
 			return null;
 		}
-		throw new IllegalStateException("不是 一个 json 对象：" + json);
+		throw new IllegalArgumentException("不是 一个 json 对象：" + json);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class JacksonDataConvertor implements DataConvertor {
 		try {
 			return toArray(objectMapper.readTree(new InputStreamReader(in, charset)));
 		} catch (IOException e) {
-			throw new IllegalStateException("Jackson 解析异常", e);
+			throw new IllegalArgumentException("Jackson 解析异常", e);
 		}
 	}
 
@@ -73,18 +73,18 @@ public class JacksonDataConvertor implements DataConvertor {
 		try {
 			return toArray(objectMapper.readTree(in));
 		} catch (IOException e) {
-			throw new IllegalStateException("Jackson 解析异常", e);
+			throw new IllegalArgumentException("Jackson 解析异常", e);
 		}
 	}
 
-	private Array toArray(JsonNode json) {
+	protected Array toArray(JsonNode json) {
 		if (json.isArray()) {
 			return new JacksonArray(objectMapper, (ArrayNode) json);
 		}
 		if (json.isNull() || json.isMissingNode()) {
 			return null;
 		}
-		throw new IllegalStateException("不是 一个 json 数组：" + json);
+		throw new IllegalStateException("不是数组：" + json);
 	}
 
 	@Override
