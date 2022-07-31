@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -29,7 +30,8 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
 
     @Override
     public Mapper toMapper(String in) {
-        return new Fastjson2Mapper(JSONB.parseObject(in.getBytes(StandardCharsets.UTF_8)));
+        byte[] bytes = Base64.getDecoder().decode(in);
+        return new Fastjson2Mapper(JSONB.parseObject(bytes));
     }
 
     @Override
@@ -39,7 +41,8 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
 
     @Override
     public Array toArray(String in) {
-        return new Fastjson2Array(JSONB.parseArray(in.getBytes(StandardCharsets.UTF_8)));
+        byte[] bytes = Base64.getDecoder().decode(in);
+        return new Fastjson2Array(JSONB.parseArray(bytes));
     }
 
     @Override
@@ -55,7 +58,8 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
 
     @Override
     public String serialize(Object object) {
-        return new String(serialize(object, StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        byte[] bytes = serialize(object, null);
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
     @Override
@@ -65,7 +69,8 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
 
     @Override
     public <T> T toBean(Type type, String in) {
-        return JSONB.parseObject(in.getBytes(StandardCharsets.UTF_8), type);
+        byte[] bytes = Base64.getDecoder().decode(in);
+        return JSONB.parseObject(bytes, type);
     }
 
     @Override
@@ -76,8 +81,9 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
 
     @Override
     public <T> List<T> toList(Class<T> type, String in) {
+        byte[] bytes = Base64.getDecoder().decode(in);
         ParameterizedTypeImpl paramType = new ParameterizedTypeImpl(new Type[]{type}, null, List.class);
-        return JSONB.parseObject(in.getBytes(StandardCharsets.UTF_8), paramType);
+        return JSONB.parseObject(bytes, paramType);
     }
 
     protected byte[] toBytes(InputStream in) {

@@ -19,42 +19,42 @@ public class JsonTests extends Tests {
     final String user2_1 = "{\"deleted\":true,\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"}}";
 
     @Override
-    String user1Str() {
+    protected String user1Str() {
         return user1_0;
     }
 
     @Override
-    boolean checkUser1Str(String serialize) {
+    protected boolean checkUser1Str(String serialize) {
         return user1_0.equals(serialize) || user1_1.equals(serialize);
     }
 
     @Override
-    String user2Str() {
+    protected String user2Str() {
         return user2_0;
     }
 
     @Override
-    boolean checkUser2Str(String serialize) {
+    protected boolean checkUser2Str(String serialize) {
         return user2_0.equals(serialize) || user2_1.equals(serialize);
     }
 
     @Override
-    String userListStr() {
+    protected String userListStr() {
         return "[" + user1_0 + "," + user2_0 + "]";
     }
 
     @Override
-    boolean checkUserListStr(String serialize) {
+    protected boolean checkUserListStr(String serialize) {
         return userListStr().equals(serialize) || ("[" + user1_1 + "," + user2_1 + "]").equals(serialize);
     }
 
     @Override
-    String objectListStr() {
+    protected String objectListStr() {
         return "[" + user1_0 + "," + user2_0 + ",\"Hello\",100]";
     }
 
     @Override
-    boolean checkObjectListStr(String serialize) {
+    protected boolean checkObjectListStr(String serialize) {
         return objectListStr().equals(serialize) || ("[" + user1_1 + "," + user2_1 + ",\"Hello\",100]").equals(serialize);
     }
 

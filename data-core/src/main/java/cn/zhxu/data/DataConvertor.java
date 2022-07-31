@@ -23,9 +23,10 @@ public interface DataConvertor {
 
     /**
      * 解析 Mapper
-     * @param in JSON/XML 字符串
+     * @param in JSON/XML 字符串（如果是 JSONB，则传 Base64后的字符串）
      * @return Mapper
      * @since v1.2.0
+     * @throws IllegalArgumentException 解析 JSONB 时，if {@code in} is not in valid Base64 scheme
      */
     default Mapper toMapper(String in) {
         return toMapper(new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
@@ -41,9 +42,10 @@ public interface DataConvertor {
 
     /**
      * 解析 Array
-     * @param in JSON/XML 字符串
+     * @param in JSON/XML 字符串（如果是 JSONB，则传 Base64后的字符串）
      * @return Array
      * @since v1.2.0
+     * @throws IllegalArgumentException 解析 JSONB 时，if {@code in} is not in valid Base64 scheme
      */
     default Array toArray(String in) {
         return toArray(new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
@@ -81,8 +83,9 @@ public interface DataConvertor {
      * 解析 Java Bean
      * @param <T> 目标泛型
      * @param type 目标类型
-     * @param in JSON/XML 字符串
+     * @param in JSON/XML 字符串（如果是 JSONB，则传 Base64后的字符串）
      * @return Java Bean
+     * @throws IllegalArgumentException 解析 JSONB 时，if {@code in} is not in valid Base64 scheme
      * @since v1.2.0
      */
     default <T> T toBean(Type type, String in) {
@@ -103,8 +106,9 @@ public interface DataConvertor {
      * 解析为 Java List
      * @param <T> 目标泛型
      * @param type 目标类型
-     * @param in JSON/XML 输入流
+     * @param in JSON/XML 输入流（如果是 JSONB，则传 Base64后的字符串）
      * @return Java List
+     * @throws IllegalArgumentException 解析 JSONB 时，if {@code in} is not in valid Base64 scheme
      * @since v1.2.0
      */
     default <T> List<T> toList(Class<T> type, String in) {

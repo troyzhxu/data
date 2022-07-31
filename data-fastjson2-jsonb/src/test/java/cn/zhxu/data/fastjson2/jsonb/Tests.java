@@ -1,15 +1,19 @@
-package cn.zhxu.data.test;
+package cn.zhxu.data.fastjson2.jsonb;
 
 import cn.zhxu.data.Array;
 import cn.zhxu.data.DataConvertor;
 import cn.zhxu.data.Mapper;
 import cn.zhxu.data.TypeRef;
+import cn.zhxu.data.test.School;
+import cn.zhxu.data.test.User;
+import com.alibaba.fastjson2.JSONB;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -193,23 +197,28 @@ public abstract class Tests {
 
     private void test_01_toMapper() {
         assertUser(convertor.toMapper(user1Str()), user1);
-        InputStream in1 = new ByteArrayInputStream(user1Str().getBytes(StandardCharsets.UTF_8));
+        InputStream in1 = new ByteArrayInputStream(JSONB.toBytes(user1));
         assertUser(convertor.toMapper(in1, StandardCharsets.UTF_8), user1);
         assertUser(convertor.toMapper(user2Str()), user2);
-        InputStream in2 = new ByteArrayInputStream(user2Str().getBytes(StandardCharsets.UTF_8));
+        InputStream in2 = new ByteArrayInputStream(JSONB.toBytes(user2));
         assertUser(convertor.toMapper(in2, StandardCharsets.UTF_8), user2);
         System.out.println("case 01 passed!");
     }
 
     private void test_02_toArray_01() {
-        InputStream in = new ByteArrayInputStream(userListStr().getBytes(StandardCharsets.UTF_8));
+        InputStream in = new ByteArrayInputStream(JSONB.toBytes(userList));
         assertUserList(convertor.toArray(in, StandardCharsets.UTF_8));
         assertUserList(convertor.toArray(userListStr()));
         System.out.println("case 02 passed!");
     }
 
     private void test_03_toArray_02() {
-        InputStream in = new ByteArrayInputStream(objectListStr().getBytes(StandardCharsets.UTF_8));
+        List<Object> list = new ArrayList<>();
+        list.add(user1);
+        list.add(user2);
+        list.add("Hello");
+        list.add(100);
+        InputStream in = new ByteArrayInputStream(JSONB.toBytes(list));
         assertObjectList(convertor.toArray(in, StandardCharsets.UTF_8));
         assertObjectList(convertor.toArray(objectListStr()));
         System.out.println("case 03 passed!");
@@ -218,9 +227,9 @@ public abstract class Tests {
     private void test_04_toBean() {
         Assertions.assertEquals(convertor.toBean(User.class, user1Str()), user1);
         Assertions.assertEquals(convertor.toBean(User.class, user2Str()), user2);
-        InputStream in1 = new ByteArrayInputStream(user1Str().getBytes(StandardCharsets.UTF_8));
+        InputStream in1 = new ByteArrayInputStream(JSONB.toBytes(user1));
         Assertions.assertEquals(convertor.toBean(User.class, in1, StandardCharsets.UTF_8), user1);
-        InputStream in2 = new ByteArrayInputStream(user2Str().getBytes(StandardCharsets.UTF_8));
+        InputStream in2 = new ByteArrayInputStream(JSONB.toBytes(user2));
         Assertions.assertEquals(convertor.toBean(User.class, in2, StandardCharsets.UTF_8), user2);
         List<User> list = convertor.toBean(new TypeRef<List<User>>(){}.getType(), userListStr());
         assertUserList(list);
@@ -229,7 +238,7 @@ public abstract class Tests {
 
     private void test_05_toList() {
         assertUserList(convertor.toList(User.class, userListStr()));
-        InputStream in = new ByteArrayInputStream(userListStr().getBytes(StandardCharsets.UTF_8));
+        InputStream in = new ByteArrayInputStream(JSONB.toBytes(userList));
         assertUserList(convertor.toList(User.class, in, StandardCharsets.UTF_8));
         System.out.println("case 05 passed!");
     }

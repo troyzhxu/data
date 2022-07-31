@@ -1,6 +1,5 @@
 package cn.zhxu.data.fastjson2.jsonb;
 
-import cn.zhxu.data.test.JsonbTests;
 import org.junit.jupiter.api.Test;
 
 /**
