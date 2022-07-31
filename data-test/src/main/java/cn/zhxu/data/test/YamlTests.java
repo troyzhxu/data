@@ -12,11 +12,20 @@ public class YamlTests extends Tests {
         super(convertor);
     }
 
-    final String user1_0 = "{\"id\":101001,\"name\":\"Jack\",\"school\":{\"id\":101,\"name\":\"清华\"},\"deleted\":false}";
-    final String user1_1 = "{\"deleted\":false,\"id\":101001,\"name\":\"Jack\",\"school\":{\"id\":101,\"name\":\"清华\"}}";
-
-    final String user2_0 = "{\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"},\"deleted\":true}";
-    final String user2_1 = "{\"deleted\":true,\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"}}";
+    final String user1_0 = "---\n" +
+            "id: 101001\n" +
+            "name: \"Jack\"\n" +
+            "school:\n" +
+            "  id: 101\n" +
+            "  name: \"清华\"\n" +
+            "deleted: false";
+    final String user2_0 = "---\n" +
+            "id: 102002\n" +
+            "name: \"Alice\"\n" +
+            "school:\n" +
+            "  id: 102\n" +
+            "  name: \"北大\"\n" +
+            "deleted: true";
 
     @Override
     protected String user1Str() {
@@ -25,7 +34,7 @@ public class YamlTests extends Tests {
 
     @Override
     protected boolean checkUser1Str(String serialize) {
-        return user1_0.equals(serialize) || user1_1.equals(serialize);
+        return user1_0.equals(serialize.trim());
     }
 
     @Override
@@ -35,27 +44,53 @@ public class YamlTests extends Tests {
 
     @Override
     protected boolean checkUser2Str(String serialize) {
-        return user2_0.equals(serialize) || user2_1.equals(serialize);
+        return user2_0.equals(serialize.trim());
     }
 
     @Override
     protected String userListStr() {
-        return "[" + user1_0 + "," + user2_0 + "]";
+        return "---\n" +
+                "- id: 101001\n" +
+                "  name: \"Jack\"\n" +
+                "  school:\n" +
+                "    id: 101\n" +
+                "    name: \"清华\"\n" +
+                "  deleted: false\n" +
+                "- id: 102002\n" +
+                "  name: \"Alice\"\n" +
+                "  school:\n" +
+                "    id: 102\n" +
+                "    name: \"北大\"\n" +
+                "  deleted: true";
     }
 
     @Override
     protected boolean checkUserListStr(String serialize) {
-        return userListStr().equals(serialize) || ("[" + user1_1 + "," + user2_1 + "]").equals(serialize);
+        return userListStr().equals(serialize.trim());
     }
 
     @Override
     protected String objectListStr() {
-        return "[" + user1_0 + "," + user2_0 + ",\"Hello\",100]";
+        return "---\n" +
+                "- id: 101001\n" +
+                "  name: \"Jack\"\n" +
+                "  school:\n" +
+                "    id: 101\n" +
+                "    name: \"清华\"\n" +
+                "  deleted: false\n" +
+                "- id: 102002\n" +
+                "  name: \"Alice\"\n" +
+                "  school:\n" +
+                "    id: 102\n" +
+                "    name: \"北大\"\n" +
+                "  deleted: true\n" +
+                "- \"Hello\"\n" +
+                "- 100";
     }
 
     @Override
     protected boolean checkObjectListStr(String serialize) {
-        return objectListStr().equals(serialize) || ("[" + user1_1 + "," + user2_1 + ",\"Hello\",100]").equals(serialize);
+        return objectListStr().equals(serialize.trim());
     }
 
 }
