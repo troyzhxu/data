@@ -26,7 +26,7 @@
 		<gson.version>2.9.0</gson.version>
 		<snack3.version>3.2.31</snack3.version>
 		<fastjson.version>1.2.83</fastjson.version>
-		<fastjson2.version>2.0.9</fastjson2.version>
+		<fastjson2.version>2.0.10</fastjson2.version>
 		<jackson.version>2.13.3</jackson.version>
 		<junit.version>5.8.2</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
