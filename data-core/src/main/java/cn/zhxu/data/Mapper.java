@@ -10,7 +10,7 @@ import java.util.function.BiConsumer;
  * Mapper 接口，类似于 JsonObject
  * 但为什么不取名为 JsonObject 呢? 因它不止是 json，它还可以是 xml、yml、protobuf 等任何一种格式的数据
  * @author Troy.Zhou
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Mapper extends DataSet {
 

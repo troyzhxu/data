@@ -8,7 +8,7 @@ import java.util.function.BiConsumer;
  * Array 接口 类似于 JsonArray
  * 但为什么不取名为 JsonArray 呢，因它不止是 json，它还可以是 xml、yml、protobuf 等任何一种格式的数据
  * @author Troy.Zhou
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Array extends DataSet {
 
@@ -62,7 +62,6 @@ public interface Array extends DataSet {
 
 	/**
 	 * 遍历 Array
-	 * @since 2.5.1
 	 * @param consumer 消费者
 	 */
 	default void forEach(BiConsumer<Integer, Data> consumer) {
