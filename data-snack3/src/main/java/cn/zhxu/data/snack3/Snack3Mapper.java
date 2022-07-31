@@ -18,8 +18,9 @@ public class Snack3Mapper implements Mapper {
 	private final ONode json;
 	
 	public Snack3Mapper(ONode json) {
-		this.json = json;
-		if (!json.isObject()) {
+		if (json.isObject()) {
+			this.json = json;
+		} else {
 			throw new IllegalArgumentException("illegal json object type");
 		}
 	}

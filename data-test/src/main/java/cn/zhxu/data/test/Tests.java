@@ -107,7 +107,7 @@ public abstract class Tests {
         Assertions.assertTrue(user.containsKey("school"));
         Assertions.assertTrue(user.containsKey("deleted"));
         Assertions.assertFalse(user.containsKey("age"));
-        Assertions.assertEquals(expected.getId(), user.get("id"));
+        Assertions.assertEquals(String.valueOf(expected.getId()), String.valueOf(user.get("id")));
         Assertions.assertEquals(expected.getName(), user.get("name"));
         Assertions.assertEquals(expected.isDeleted(), user.get("deleted"));
         Map<String, Object> school = (Map<String, Object>) user.get("school");
@@ -132,7 +132,7 @@ public abstract class Tests {
         Assertions.assertTrue(school.containsKey("id"));
         Assertions.assertTrue(school.containsKey("name"));
         Assertions.assertFalse(school.containsKey("address"));
-        Assertions.assertEquals(expected.getId(), school.get("id"));
+        Assertions.assertEquals(String.valueOf(expected.getId()), String.valueOf(school.get("id")));
         Assertions.assertEquals(expected.getName(), school.get("name"));
     }
 
@@ -188,7 +188,7 @@ public abstract class Tests {
         assertUser((Map<String, Object>) array.get(0), (User) objectList.get(0));
         assertUser((Map<String, Object>) array.get(1), (User) objectList.get(1));
         Assertions.assertEquals(array.get(2), objectList.get(2));
-        Assertions.assertEquals(array.get(3), objectList.get(3));
+        Assertions.assertEquals(String.valueOf(array.get(3)), String.valueOf(objectList.get(3)));
     }
 
     private void test_01_toMapper() {
