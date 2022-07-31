@@ -68,7 +68,7 @@ implementation 'cn.zhxu:data-snack3:1.5.0'
 
 * [**[ OkHttps ]**](https://gitee.com/troyzhxu/okhttps) - 轻量却强大的 HTTP 客户端，前后端通用，支持 WebSocket 与 Stomp 协议
 
-* [**[ Json Kit ]**](https://gitee.com/troyzhxu/jsonkit) - 超轻量级 JSON 门面工具，用法简单，不依赖具体实现，让业务代码与 Jackson、Gson、Fastjson 等解耦！
+* [**[ xJson Kit ]**](https://gitee.com/troyzhxu/xjsonkit) - 超轻量级 JSON 门面工具，用法简单，不依赖具体实现，让业务代码与 Jackson、Gson、Fastjson 等解耦！
 
 ### 友情链接
 
