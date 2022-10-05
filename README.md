@@ -13,55 +13,55 @@
 * 核心依赖
 
 ```groovy
-implementation 'cn.zhxu:data-core:1.5.0'
+implementation 'cn.zhxu:data-core:1.5.1'
 ```
 
 * FastJson 实现
 
 ```groovy
-implementation 'cn.zhxu:data-fastjson:1.5.0'
+implementation 'cn.zhxu:data-fastjson:1.5.1'
 ```
 
 * FastJson2 实现
 
 ```groovy
-implementation 'cn.zhxu:data-fastjson2:1.5.0'
+implementation 'cn.zhxu:data-fastjson2:1.5.1'
 ```
 
 * FastJson2 Jsonb 实现
 
 ```groovy
-implementation 'cn.zhxu:data-fastjson2-jsonb:1.5.0'
+implementation 'cn.zhxu:data-fastjson2-jsonb:1.5.1'
 ```
 
 * Gson 实现
 
 ```groovy
-implementation 'cn.zhxu:data-gson:1.5.0'
+implementation 'cn.zhxu:data-gson:1.5.1'
 ```
 
 * Jackson 实现
 
 ```groovy
-implementation 'cn.zhxu:data-jackson:1.5.0'
+implementation 'cn.zhxu:data-jackson:1.5.1'
 ```
 
 * Jackson Xml 实现
 
 ```groovy
-implementation 'cn.zhxu:data-jackson-xml:1.5.0'
+implementation 'cn.zhxu:data-jackson-xml:1.5.1'
 ```
 
 * Jackson Yaml 实现
 
 ```groovy
-implementation 'cn.zhxu:data-jackson-yaml:1.5.0'
+implementation 'cn.zhxu:data-jackson-yaml:1.5.1'
 ```
 
 * Snack3 实现
 
 ```groovy
-implementation 'cn.zhxu:data-snack3:1.5.0'
+implementation 'cn.zhxu:data-snack3:1.5.1'
 ```
 
 ### 衍生项目
