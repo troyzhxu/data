@@ -3,7 +3,7 @@
 
 	<groupId>cn.zhxu</groupId>
 	<artifactId>data</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1</version>
 	<name>Data</name>
 
 	<packaging>pom</packaging>
@@ -52,7 +52,7 @@
 		<connection>scm:git://gitee.com/troyzhxu/data.git</connection>
 		<developerConnection>scm:http://gitee.com/troyzhxu/data</developerConnection>
 		<url>https://gitee.com/troyzhxu/data</url>
-		<tag>v1.5.0</tag>
+		<tag>v${project.version}</tag>
 	</scm>
 	
 	<dependencies>
