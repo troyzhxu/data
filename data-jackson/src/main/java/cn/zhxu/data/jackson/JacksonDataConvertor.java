@@ -5,6 +5,7 @@ import cn.zhxu.data.DataConvertor;
 import cn.zhxu.data.Mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -28,6 +29,8 @@ public class JacksonDataConvertor implements DataConvertor {
 	}
 
 	public JacksonDataConvertor(ObjectMapper objectMapper) {
+		// 自 v1.5.3: 默认可兼容未知属性
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		this.objectMapper = objectMapper;
 	}
 
