@@ -3,7 +3,7 @@
 
 	<groupId>cn.zhxu</groupId>
 	<artifactId>data</artifactId>
-	<version>1.5.2</version>
+	<version>1.5.3</version>
 	<name>Data</name>
 
 	<packaging>pom</packaging>
@@ -23,12 +23,12 @@
 
 	<properties>
 		<java-version>8</java-version>
-		<gson.version>2.10</gson.version>
-		<snack3.version>3.2.48</snack3.version>
+		<gson.version>2.10.1</gson.version>
+		<snack3.version>3.2.80</snack3.version>
 		<fastjson.version>1.2.83</fastjson.version>
-		<fastjson2.version>2.0.20</fastjson2.version>
-		<jackson.version>2.14.1</jackson.version>
-		<junit.version>5.9.1</junit.version>
+		<fastjson2.version>2.0.41</fastjson2.version>
+		<jackson.version>2.15.3</jackson.version>
+		<junit.version>5.9.3</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
