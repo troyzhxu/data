@@ -23,12 +23,12 @@
 
 	<properties>
 		<java-version>8</java-version>
-		<gson.version>2.10.1</gson.version>
-		<snack3.version>3.2.80</snack3.version>
+		<gson.version>2.11.0</gson.version>
+		<snack3.version>3.2.109</snack3.version>
 		<fastjson.version>1.2.83</fastjson.version>
-		<fastjson2.version>2.0.41</fastjson2.version>
-		<jackson.version>2.15.3</jackson.version>
-		<junit.version>5.9.3</junit.version>
+		<fastjson2.version>2.0.52</fastjson2.version>
+		<jackson.version>2.17.2</jackson.version>
+		<junit.version>5.11.0</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
