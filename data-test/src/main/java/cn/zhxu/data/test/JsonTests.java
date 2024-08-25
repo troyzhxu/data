@@ -115,8 +115,10 @@ public class JsonTests extends Tests {
         if (pretty) {
             return prettyJsonEquals("[\n\t" + user1_0_pretty.replace("\n", "\n\t") + ",\n\t" +
                     user2_0_pretty.replace("\n", "\n\t") + "\n]", json) ||
-            prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
-                    user2_1_pretty.replace("\n", "\n\t") + "\n]", json);
+                    prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
+                    user2_1_pretty.replace("\n", "\n\t") + "\n]", json) ||
+                    prettyJsonEquals("[ " + user1_0_pretty + ", " + user2_0_pretty + " ]", json) ||
+                    prettyJsonEquals("[ " + user1_1_pretty + ", " + user2_1_pretty + " ]", json);
         }
         return checkUserListStr(json);
     }
@@ -127,7 +129,9 @@ public class JsonTests extends Tests {
             return prettyJsonEquals("[\n\t" + user1_0_pretty.replace("\n", "\n\t") + ",\n\t" +
                      user2_0_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json) ||
                     prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
-                            user2_1_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json);
+                            user2_1_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json) ||
+                    prettyJsonEquals("[ " + user1_0_pretty + ", " + user2_0_pretty + ", \"Hello\", 100 ]", json) ||
+                    prettyJsonEquals("[ " + user1_1_pretty + ", " + user2_1_pretty + ", \"Hello\", 100 ]", json);
         }
         return checkObjectListStr(json);
     }
@@ -135,7 +139,15 @@ public class JsonTests extends Tests {
     private boolean prettyJsonEquals(String expect, String json) {
         return expect.equals(json) || expect.replace("\t", "  ").equals(json) ||
                 expect.replace(":", ": ").equals(json) ||
-                expect.replace("\t", "  ").replace(":", ": ").equals(json);
+                expect.replace(":", " : ").equals(json) ||
+                expect.replace("\t", "  ").replace(":", ": ").equals(json) ||
+                expect.replace("\t", "  ").replace(":", " : ").equals(json) ||
+                expect.replace("\n", "\r\n").equals(json) ||
+                expect.replace("\n", "\r\n").replace("\t", "  ").equals(json) ||
+                expect.replace("\n", "\r\n").replace(":", ": ").equals(json) ||
+                expect.replace("\n", "\r\n").replace(":", " : ").equals(json) ||
+                expect.replace("\n", "\r\n").replace("\t", "  ").replace(":", ": ").equals(json) ||
+                expect.replace("\n", "\r\n").replace("\t", "  ").replace(":", " : ").equals(json);
     }
 
 }
