@@ -14,6 +14,7 @@ public class JsonTests extends Tests {
 
     final String user1_0 = "{\"id\":101001,\"name\":\"Jack\",\"school\":{\"id\":101,\"name\":\"清华\"},\"deleted\":false}";
     final String user1_1 = "{\"deleted\":false,\"id\":101001,\"name\":\"Jack\",\"school\":{\"id\":101,\"name\":\"清华\"}}";
+    final String user1_2 = "{\"deleted\":false,\"school\":{\"name\":\"清华\",\"id\":101},\"name\":\"Jack\",\"id\":101001}";
     final String user1_0_pretty = "{\n" +
             "\t\"id\":101001,\n" +
             "\t\"name\":\"Jack\",\n" +
@@ -44,6 +45,7 @@ public class JsonTests extends Tests {
 
     final String user2_0 = "{\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"},\"deleted\":true}";
     final String user2_1 = "{\"deleted\":true,\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"}}";
+    final String user2_2 = "{\"deleted\":true,\"school\":{\"name\":\"北大\",\"id\":102},\"name\":\"Alice\",\"id\":102002}";
     final String user2_0_pretty = "{\n" +
             "\t\"id\":102002,\n" +
             "\t\"name\":\"Alice\",\n" +
@@ -79,7 +81,7 @@ public class JsonTests extends Tests {
 
     @Override
     protected boolean checkUser1Str(String json) {
-        return user1_0.equals(json) || user1_1.equals(json);
+        return user1_0.equals(json) || user1_1.equals(json) || user1_2.equals(json);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class JsonTests extends Tests {
 
     @Override
     protected boolean checkUser2Str(String json) {
-        return user2_0.equals(json) || user2_1.equals(json);
+        return user2_0.equals(json) || user2_1.equals(json) || user2_2.equals(json);
     }
 
     @Override
@@ -99,7 +101,9 @@ public class JsonTests extends Tests {
 
     @Override
     protected boolean checkUserListStr(String json) {
-        return userListStr().equals(json) || ("[" + user1_1 + "," + user2_1 + "]").equals(json);
+        return userListStr().equals(json) ||
+                ("[" + user1_1 + "," + user2_1 + "]").equals(json) ||
+                ("[" + user1_2 + "," + user2_2 + "]").equals(json);
     }
 
     @Override
@@ -109,13 +113,16 @@ public class JsonTests extends Tests {
 
     @Override
     protected boolean checkObjectListStr(String json) {
-        return objectListStr().equals(json) || ("[" + user1_1 + "," + user2_1 + ",\"Hello\",100]").equals(json);
+        return objectListStr().equals(json) ||
+                ("[" + user1_1 + "," + user2_1 + ",\"Hello\",100]").equals(json) ||
+                ("[" + user1_2 + "," + user2_2 + ",\"Hello\",100]").equals(json);
     }
 
     @Override
     protected boolean checkUser1Str(String json, boolean pretty) {
         if (pretty) {
-            return prettyJsonEquals(user1_0_pretty, json) || prettyJsonEquals(user1_1_pretty, json) || prettyJsonEquals(user1_2_pretty, json);
+            return prettyJsonEquals(user1_0_pretty, json) || prettyJsonEquals(user1_1_pretty, json) ||
+                    prettyJsonEquals(user1_2_pretty, json);
         }
         return checkUser1Str(json);
     }
@@ -123,7 +130,8 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkUser2Str(String json, boolean pretty) {
         if (pretty) {
-            return prettyJsonEquals(user2_0_pretty, json) || prettyJsonEquals(user2_1_pretty, json) || prettyJsonEquals(user2_2_pretty, json);
+            return prettyJsonEquals(user2_0_pretty, json) || prettyJsonEquals(user2_1_pretty, json) ||
+                    prettyJsonEquals(user2_2_pretty, json);
         }
         return checkUser2Str(json);
     }

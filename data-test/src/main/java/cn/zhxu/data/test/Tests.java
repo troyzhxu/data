@@ -195,9 +195,13 @@ public abstract class Tests {
         Mapper mapper1 = doMapperTest(user1Str(), user1);
         doMapperTest(mapper1.toString(), user1);
         doMapperTest(mapper1.toPretty(), user1);
+        Assertions.assertTrue(checkUser1Str(mapper1.toString()));
+        Assertions.assertTrue(checkUser1Str(mapper1.toPretty(), true));
         Mapper mapper2 = doMapperTest(user2Str(), user2);
         doMapperTest(mapper2.toString(), user2);
         doMapperTest(mapper2.toPretty(), user2);
+        Assertions.assertTrue(checkUser2Str(mapper2.toString()));
+        Assertions.assertTrue(checkUser2Str(mapper2.toPretty(), true));
         System.out.println("case 01 passed!");
     }
 
