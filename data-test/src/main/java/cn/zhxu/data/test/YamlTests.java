@@ -93,4 +93,24 @@ public class YamlTests extends Tests {
         return objectListStr().equals(serialize.trim());
     }
 
+    @Override
+    protected boolean checkObjectListStr(String serialize, boolean pretty) {
+        return checkObjectListStr(serialize);
+    }
+
+    @Override
+    protected boolean checkUserListStr(String serialize, boolean pretty) {
+        return checkUserListStr(serialize);
+    }
+
+    @Override
+    protected boolean checkUser2Str(String serialize, boolean pretty) {
+        return checkUser2Str(serialize);
+    }
+
+    @Override
+    protected boolean checkUser1Str(String serialize, boolean pretty) {
+        return checkUser1Str(serialize);
+    }
+
 }
