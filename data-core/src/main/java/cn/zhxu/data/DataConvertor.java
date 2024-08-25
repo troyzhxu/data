@@ -57,7 +57,19 @@ public interface DataConvertor {
      * @param charset 编码格式
      * @return 字节数组
      */
-    byte[] serialize(Object object, Charset charset);
+    default byte[] serialize(Object object, Charset charset) {
+        return serialize(object, charset, false);
+    }
+
+    /**
+     * 将 Java 对象序列化为字节数组
+     * @param object Java 对象
+     * @param charset 编码格式
+     * @param pretty 格式化输出
+     * @return 字节数组
+     * @since v1.6.0
+     */
+    byte[] serialize(Object object, Charset charset, boolean pretty);
 
     /**
      * 将 Java 对象序列化为字符串
@@ -66,7 +78,18 @@ public interface DataConvertor {
      * @since v1.2.0
      */
     default String serialize(Object object) {
-        return new String(serialize(object, StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        return serialize(object, false);
+    }
+
+    /**
+     * 将 Java 对象序列化为字符串
+     * @param object Java 对象
+     * @param pretty 格式化输出
+     * @return 字符串
+     * @since v1.6.0
+     */
+    default String serialize(Object object, boolean pretty) {
+        return new String(serialize(object, StandardCharsets.UTF_8, pretty), StandardCharsets.UTF_8);
     }
 
     /**
