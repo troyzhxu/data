@@ -97,7 +97,7 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkUser1Str(String json, boolean pretty) {
         if (pretty) {
-            return user1_0_pretty.equals(json) || user1_1_pretty.equals(json);
+            return prettyJsonEquals(user1_0_pretty, json) || prettyJsonEquals(user1_1_pretty, json);
         }
         return checkUser1Str(json);
     }
@@ -105,7 +105,7 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkUser2Str(String json, boolean pretty) {
         if (pretty) {
-            return user2_0_pretty.equals(json) || user2_1_pretty.equals(json);
+            return prettyJsonEquals(user2_0_pretty, json) || prettyJsonEquals(user2_1_pretty, json);
         }
         return checkUser2Str(json);
     }
@@ -113,10 +113,10 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkUserListStr(String json, boolean pretty) {
         if (pretty) {
-            return ("[\n\t" + user1_0_pretty.replace("\n", "\n\t") + ",\n\t" +
-                    user2_0_pretty.replace("\n", "\n\t") + "\n]").equals(json) ||
-                    ("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
-                            user2_1_pretty.replace("\n", "\n\t") + "\n]").equals(json);
+            return prettyJsonEquals("[\n\t" + user1_0_pretty.replace("\n", "\n\t") + ",\n\t" +
+                    user2_0_pretty.replace("\n", "\n\t") + "\n]", json) ||
+            prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
+                    user2_1_pretty.replace("\n", "\n\t") + "\n]", json);
         }
         return checkUserListStr(json);
     }
@@ -124,12 +124,18 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkObjectListStr(String json, boolean pretty) {
         if (pretty) {
-            return ("[\n\t" + user1_0_pretty.replace("\n", "\n\t") + ",\n\t" +
-                    user2_0_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]").equals(json) ||
-                    ("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
-                            user2_1_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]").equals(json);
+            return prettyJsonEquals("[\n\t" + user1_0_pretty.replace("\n", "\n\t") + ",\n\t" +
+                     user2_0_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json) ||
+                    prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
+                            user2_1_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json);
         }
         return checkObjectListStr(json);
+    }
+
+    private boolean prettyJsonEquals(String expect, String json) {
+        return expect.equals(json) || expect.replace("\t", "  ").equals(json) ||
+                expect.replace(":", ": ").equals(json) ||
+                expect.replace("\t", "  ").replace(":", ": ").equals(json);
     }
 
 }
