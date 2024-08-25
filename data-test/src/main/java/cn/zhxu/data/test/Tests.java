@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class Tests {
 
-    private final DataConvertor convertor;
+    protected final DataConvertor convertor;
 
     public Tests(DataConvertor convertor) {
         this.convertor = convertor;
@@ -191,21 +191,25 @@ public abstract class Tests {
         Assertions.assertEquals(String.valueOf(array.get(3)), String.valueOf(objectList.get(3)));
     }
 
-    private void test_01_toMapper() {
+    protected void test_01_toMapper() {
         Mapper mapper1 = doMapperTest(user1Str(), user1);
-        doMapperTest(mapper1.toString(), user1);
-        doMapperTest(mapper1.toPretty(), user1);
-        Assertions.assertTrue(checkUser1Str(mapper1.toString()));
-        Assertions.assertTrue(checkUser1Str(mapper1.toPretty(), true));
+        if (this instanceof JsonTests) {
+            doMapperTest(mapper1.toString(), user1);
+            doMapperTest(mapper1.toPretty(), user1);
+            Assertions.assertTrue(checkUser1Str(mapper1.toString()));
+            Assertions.assertTrue(checkUser1Str(mapper1.toPretty(), true));
+        }
         Mapper mapper2 = doMapperTest(user2Str(), user2);
-        doMapperTest(mapper2.toString(), user2);
-        doMapperTest(mapper2.toPretty(), user2);
-        Assertions.assertTrue(checkUser2Str(mapper2.toString()));
-        Assertions.assertTrue(checkUser2Str(mapper2.toPretty(), true));
+        if (this instanceof JsonTests) {
+            doMapperTest(mapper2.toString(), user2);
+            doMapperTest(mapper2.toPretty(), user2);
+            Assertions.assertTrue(checkUser2Str(mapper2.toString()));
+            Assertions.assertTrue(checkUser2Str(mapper2.toPretty(), true));
+        }
         System.out.println("case 01 passed!");
     }
 
-    private Mapper doMapperTest(String input, User user1) {
+    protected Mapper doMapperTest(String input, User user1) {
         Mapper mapper = convertor.toMapper(input);
         assertUser(mapper, user1);
         InputStream in1 = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
@@ -213,27 +217,31 @@ public abstract class Tests {
         return mapper;
     }
 
-    private void test_02_toArray_01() {
+    protected void test_02_toArray_01() {
         InputStream in = new ByteArrayInputStream(userListStr().getBytes(StandardCharsets.UTF_8));
         assertUserList(convertor.toArray(in, StandardCharsets.UTF_8));
         Array array = convertor.toArray(userListStr());
         assertUserList(array);
-        assertUserList(convertor.toArray(array.toString()));
-        assertUserList(convertor.toArray(array.toPretty()));
+        if (this instanceof JsonTests) {
+            assertUserList(convertor.toArray(array.toString()));
+            assertUserList(convertor.toArray(array.toPretty()));
+        }
         System.out.println("case 02 passed!");
     }
 
-    private void test_03_toArray_02() {
+    protected void test_03_toArray_02() {
         InputStream in = new ByteArrayInputStream(objectListStr().getBytes(StandardCharsets.UTF_8));
         assertObjectList(convertor.toArray(in, StandardCharsets.UTF_8));
         Array array = convertor.toArray(objectListStr());
         assertObjectList(array);
-        assertObjectList(convertor.toArray(array.toString()));
-        assertObjectList(convertor.toArray(array.toPretty()));
+        if (this instanceof JsonTests) {
+            assertObjectList(convertor.toArray(array.toString()));
+            assertObjectList(convertor.toArray(array.toPretty()));
+        }
         System.out.println("case 03 passed!");
     }
 
-    private void test_04_toBean() {
+    protected void test_04_toBean() {
         Assertions.assertEquals(convertor.toBean(User.class, user1Str()), user1);
         Assertions.assertEquals(convertor.toBean(User.class, user2Str()), user2);
         InputStream in1 = new ByteArrayInputStream(user1Str().getBytes(StandardCharsets.UTF_8));
@@ -245,14 +253,14 @@ public abstract class Tests {
         System.out.println("case 04 passed!");
     }
 
-    private void test_05_toList() {
+    protected void test_05_toList() {
         assertUserList(convertor.toList(User.class, userListStr()));
         InputStream in = new ByteArrayInputStream(userListStr().getBytes(StandardCharsets.UTF_8));
         assertUserList(convertor.toList(User.class, in, StandardCharsets.UTF_8));
         System.out.println("case 05 passed!");
     }
 
-    private void test_06_serialize() {
+    protected void test_06_serialize() {
         Assertions.assertTrue(checkUser1Str(convertor.serialize(user1)));
         Assertions.assertTrue(checkUser2Str(convertor.serialize(user2)));
         Assertions.assertTrue(checkUserListStr(convertor.serialize(userList)));

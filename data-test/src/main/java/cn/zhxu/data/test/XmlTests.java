@@ -27,8 +27,8 @@ public class XmlTests extends Tests {
     }
 
     @Override
-    protected boolean checkUser1Str(String serialize) {
-        return user1_0.equals(serialize);
+    protected boolean checkUser1Str(String xml) {
+        return user1_0.equals(xml);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class XmlTests extends Tests {
     }
 
     @Override
-    protected boolean checkUser2Str(String serialize) {
-        return user2_0.equals(serialize);
+    protected boolean checkUser2Str(String xml) {
+        return user2_0.equals(xml);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class XmlTests extends Tests {
     }
 
     @Override
-    protected boolean checkUserListStr(String serialize) {
-        return userListStr().equals(serialize);
+    protected boolean checkUserListStr(String xml) {
+        return userListStr().equals(xml);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class XmlTests extends Tests {
     }
 
     @Override
-    protected boolean checkObjectListStr(String serialize) {
-        return objectListStr().equals(serialize);
+    protected boolean checkObjectListStr(String xml) {
+        return objectListStr().equals(xml);
     }
 
     @Override
@@ -101,6 +101,94 @@ public class XmlTests extends Tests {
         assertUser((Map<String, Object>) array.get(1), (User) objectList.get(1));
         Assertions.assertEquals(array.get(2), objectList.get(2));
         Assertions.assertEquals(String.valueOf(array.get(3)), String.valueOf(objectList.get(3)));
+    }
+
+    @Override
+    protected boolean checkObjectListStr(String xml, boolean pretty) {
+        if (pretty) {
+            return ("<ArrayList>\r\n" +
+                    "  <item>\r\n" +
+                    "    <id>101001</id>\r\n" +
+                    "    <name>Jack</name>\r\n" +
+                    "    <school>\r\n" +
+                    "      <id>101</id>\r\n" +
+                    "      <name>清华</name>\r\n" +
+                    "    </school>\r\n" +
+                    "    <deleted>false</deleted>\r\n" +
+                    "  </item>\r\n" +
+                    "  <item>\r\n" +
+                    "    <id>102002</id>\r\n" +
+                    "    <name>Alice</name>\r\n" +
+                    "    <school>\r\n" +
+                    "      <id>102</id>\r\n" +
+                    "      <name>北大</name>\r\n" +
+                    "    </school>\r\n" +
+                    "    <deleted>true</deleted>\r\n" +
+                    "  </item>\r\n" +
+                    "  <item>Hello</item>\r\n" +
+                    "  <item>100</item>\r\n" +
+                    "</ArrayList>\r\n").equals(xml);
+        }
+        return checkObjectListStr(xml);
+    }
+
+    @Override
+    protected boolean checkUserListStr(String xml, boolean pretty) {
+        if (pretty) {
+            return ("<ArrayList>\r\n" +
+                    "  <item>\r\n" +
+                    "    <id>101001</id>\r\n" +
+                    "    <name>Jack</name>\r\n" +
+                    "    <school>\r\n" +
+                    "      <id>101</id>\r\n" +
+                    "      <name>清华</name>\r\n" +
+                    "    </school>\r\n" +
+                    "    <deleted>false</deleted>\r\n" +
+                    "  </item>\r\n" +
+                    "  <item>\r\n" +
+                    "    <id>102002</id>\r\n" +
+                    "    <name>Alice</name>\r\n" +
+                    "    <school>\r\n" +
+                    "      <id>102</id>\r\n" +
+                    "      <name>北大</name>\r\n" +
+                    "    </school>\r\n" +
+                    "    <deleted>true</deleted>\r\n" +
+                    "  </item>\r\n" +
+                    "</ArrayList>\r\n").equals(xml);
+        }
+        return checkUserListStr(xml);
+    }
+
+    @Override
+    protected boolean checkUser2Str(String xml, boolean pretty) {
+        if (pretty) {
+            return ("<User>\r\n" +
+                    "  <id>102002</id>\r\n" +
+                    "  <name>Alice</name>\r\n" +
+                    "  <school>\r\n" +
+                    "    <id>102</id>\r\n" +
+                    "    <name>北大</name>\r\n" +
+                    "  </school>\r\n" +
+                    "  <deleted>true</deleted>\r\n" +
+                    "</User>\r\n").equals(xml);
+        }
+        return checkUser2Str(xml);
+    }
+
+    @Override
+    protected boolean checkUser1Str(String xml, boolean pretty) {
+        if (pretty) {
+            return ("<User>\r\n" +
+                    "  <id>101001</id>\r\n" +
+                    "  <name>Jack</name>\r\n" +
+                    "  <school>\r\n" +
+                    "    <id>101</id>\r\n" +
+                    "    <name>清华</name>\r\n" +
+                    "  </school>\r\n" +
+                    "  <deleted>false</deleted>\r\n" +
+                    "</User>\r\n").equals(xml);
+        }
+        return checkUser1Str(xml);
     }
 
 }
