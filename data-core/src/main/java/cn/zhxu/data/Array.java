@@ -1,7 +1,9 @@
 package cn.zhxu.data;
 
-import java.util.List;
+import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * 列表结构的只读数据集
@@ -10,7 +12,7 @@ import java.util.function.BiConsumer;
  * @author Troy.Zhou
  * @since 1.0.0
  */
-public interface Array extends DataSet {
+public interface Array extends DataSet, Iterable<DataSet.Data> {
 
 	/**
 	 * @param index 元素下标
@@ -61,54 +63,103 @@ public interface Array extends DataSet {
 	String getString(int index);
 
 	/**
+	 * @return 此集合中元素上的顺序流
+	 * @since v1.6.0
+	 */
+	default Stream<Data> stream() {
+		return StreamSupport.stream(Spliterators.spliterator(iterator(), size(), 0), false);
+	}
+
+	/**
+	 * @return 迭代器
+	 * @since v1.6.0
+	 */
+	@Override
+	default Iterator<Data> iterator() {
+		return new Itr(this);
+	}
+
+	class Itr implements Iterator<Data> {
+
+		Array array;
+		int cursor = 0;
+
+		Itr(Array array) {
+			this.array = array;
+		}
+
+		public boolean hasNext() {
+			return cursor < array.size();
+		}
+
+		public Data next() {
+			int i = cursor;
+			if (i >= array.size())
+				throw new NoSuchElementException();
+			return new IdxData(array, cursor++);
+		}
+
+	}
+
+	class IdxData implements Data {
+
+		private final Array array;
+		private final int index;
+
+        public IdxData(Array array, int index) {
+			this.array = array;
+            this.index = index;
+        }
+
+        @Override
+		public Mapper toMapper() {
+			return array.getMapper(index);
+		}
+
+		@Override
+		public Array toArray() {
+			return array.getArray(index);
+		}
+
+		@Override
+		public boolean toBool() {
+			return array.getBool(index);
+		}
+
+		@Override
+		public int toInt() {
+			return array.getInt(index);
+		}
+
+		@Override
+		public long toLong() {
+			return array.getLong(index);
+		}
+
+		@Override
+		public float toFloat() {
+			return array.getFloat(index);
+		}
+
+		@Override
+		public double toDouble() {
+			return array.getDouble(index);
+		}
+
+		@Override
+		public String toString() {
+			return array.getString(index);
+		}
+
+	}
+
+	/**
 	 * 遍历 Array
 	 * @param consumer 消费者
 	 */
 	default void forEach(BiConsumer<Integer, Data> consumer) {
 		for (int i = 0; i < size(); i++) {
-			int index = i;
-			consumer.accept(i, new Data() {
-				@Override
-				public Mapper toMapper() {
-					return getMapper(index);
-				}
-
-				@Override
-				public Array toArray() {
-					return getArray(index);
-				}
-
-				@Override
-				public boolean toBool() {
-					return getBool(index);
-				}
-
-				@Override
-				public int toInt() {
-					return getInt(index);
-				}
-
-				@Override
-				public long toLong() {
-					return getLong(index);
-				}
-
-				@Override
-				public float toFloat() {
-					return getFloat(index);
-				}
-
-				@Override
-				public double toDouble() {
-					return getDouble(index);
-				}
-
-				@Override
-				public String toString() {
-					return getString(index);
-				}
-
-			});
+            consumer.accept(i, new IdxData(this, i));
 		}
 	}
 
