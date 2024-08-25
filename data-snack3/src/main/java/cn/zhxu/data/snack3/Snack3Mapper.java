@@ -4,6 +4,10 @@ import cn.zhxu.data.Array;
 import cn.zhxu.data.Mapper;
 import cn.zhxu.data.TypeRef;
 import org.noear.snack.ONode;
+import org.noear.snack.core.Context;
+import org.noear.snack.core.DEFAULTS;
+import org.noear.snack.core.Feature;
+import org.noear.snack.core.Options;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -94,11 +98,6 @@ public class Snack3Mapper implements Mapper {
 	}
 
 	@Override
-	public String toString() {
-		return json.toJson();
-	}
-
-	@Override
 	public <T> T toBean(Type type) {
 		return json.toObject(type);
 	}
@@ -117,4 +116,17 @@ public class Snack3Mapper implements Mapper {
 	public Map<String, Object> toMap() {
 		return json.toObject(Map.class);
 	}
+
+	@Override
+	public String toPretty() {
+		Options options = new Options(json.options().getFeatures()).add(Feature.PrettyFormat);
+		Context context = new Context(options, json, null).handle(DEFAULTS.DEF_JSON_TOER);
+		return (String) context.target;
+	}
+
+	@Override
+	public String toString() {
+		return json.toJson();
+	}
+
 }

@@ -32,6 +32,15 @@ public class JsonTests extends Tests {
             "\t\t\"name\":\"清华\"\n" +
             "\t}\n" +
             "}";
+    final String user1_2_pretty = "{\n" +
+            "\t\"deleted\":false,\n" +
+            "\t\"school\":{\n" +
+            "\t\t\"name\":\"清华\",\n" +
+            "\t\t\"id\":101\n" +
+            "\t},\n" +
+            "\t\"name\":\"Jack\",\n" +
+            "\t\"id\":101001\n" +
+            "}";
 
     final String user2_0 = "{\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"},\"deleted\":true}";
     final String user2_1 = "{\"deleted\":true,\"id\":102002,\"name\":\"Alice\",\"school\":{\"id\":102,\"name\":\"北大\"}}";
@@ -52,6 +61,15 @@ public class JsonTests extends Tests {
             "\t\t\"id\":102,\n" +
             "\t\t\"name\":\"北大\"\n" +
             "\t}\n" +
+            "}";
+    final String user2_2_pretty = "{\n" +
+            "\t\"deleted\":true,\n" +
+            "\t\"school\":{\n" +
+            "\t\t\"name\":\"北大\",\n" +
+            "\t\t\"id\":102\n" +
+            "\t},\n" +
+            "\t\"name\":\"Alice\",\n" +
+            "\t\"id\":102002\n" +
             "}";
 
     @Override
@@ -97,7 +115,7 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkUser1Str(String json, boolean pretty) {
         if (pretty) {
-            return prettyJsonEquals(user1_0_pretty, json) || prettyJsonEquals(user1_1_pretty, json);
+            return prettyJsonEquals(user1_0_pretty, json) || prettyJsonEquals(user1_1_pretty, json) || prettyJsonEquals(user1_2_pretty, json);
         }
         return checkUser1Str(json);
     }
@@ -105,7 +123,7 @@ public class JsonTests extends Tests {
     @Override
     protected boolean checkUser2Str(String json, boolean pretty) {
         if (pretty) {
-            return prettyJsonEquals(user2_0_pretty, json) || prettyJsonEquals(user2_1_pretty, json);
+            return prettyJsonEquals(user2_0_pretty, json) || prettyJsonEquals(user2_1_pretty, json) || prettyJsonEquals(user2_2_pretty, json);
         }
         return checkUser2Str(json);
     }
@@ -117,8 +135,11 @@ public class JsonTests extends Tests {
                     user2_0_pretty.replace("\n", "\n\t") + "\n]", json) ||
                     prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
                     user2_1_pretty.replace("\n", "\n\t") + "\n]", json) ||
+                    prettyJsonEquals("[\n\t" + user1_2_pretty.replace("\n", "\n\t") + ",\n\t" +
+                            user2_2_pretty.replace("\n", "\n\t") + "\n]", json) ||
                     prettyJsonEquals("[ " + user1_0_pretty + ", " + user2_0_pretty + " ]", json) ||
-                    prettyJsonEquals("[ " + user1_1_pretty + ", " + user2_1_pretty + " ]", json);
+                    prettyJsonEquals("[ " + user1_1_pretty + ", " + user2_1_pretty + " ]", json) ||
+                    prettyJsonEquals("[ " + user1_2_pretty + ", " + user2_2_pretty + " ]", json);
         }
         return checkUserListStr(json);
     }
@@ -130,8 +151,11 @@ public class JsonTests extends Tests {
                      user2_0_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json) ||
                     prettyJsonEquals("[\n\t" + user1_1_pretty.replace("\n", "\n\t") + ",\n\t" +
                             user2_1_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json) ||
+                    prettyJsonEquals("[\n\t" + user1_2_pretty.replace("\n", "\n\t") + ",\n\t" +
+                            user2_2_pretty.replace("\n", "\n\t") + ",\n\t\"Hello\",\n\t100\n]", json) ||
                     prettyJsonEquals("[ " + user1_0_pretty + ", " + user2_0_pretty + ", \"Hello\", 100 ]", json) ||
-                    prettyJsonEquals("[ " + user1_1_pretty + ", " + user2_1_pretty + ", \"Hello\", 100 ]", json);
+                    prettyJsonEquals("[ " + user1_1_pretty + ", " + user2_1_pretty + ", \"Hello\", 100 ]", json) ||
+                    prettyJsonEquals("[ " + user1_2_pretty + ", " + user2_2_pretty + ", \"Hello\", 100 ]", json);
         }
         return checkObjectListStr(json);
     }

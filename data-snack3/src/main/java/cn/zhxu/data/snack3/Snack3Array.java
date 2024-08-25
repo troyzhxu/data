@@ -3,6 +3,10 @@ package cn.zhxu.data.snack3;
 import cn.zhxu.data.Array;
 import cn.zhxu.data.Mapper;
 import org.noear.snack.ONode;
+import org.noear.snack.core.Context;
+import org.noear.snack.core.DEFAULTS;
+import org.noear.snack.core.Feature;
+import org.noear.snack.core.Options;
 
 import java.util.List;
 
@@ -81,11 +85,6 @@ public class Snack3Array implements Array {
 	}
 
 	@Override
-	public String toString() {
-		return json.toJson();
-	}
-
-	@Override
 	public <T> List<T> toList(Class<T> type) {
 		return json.toObjectList(type);
 	}
@@ -94,4 +93,17 @@ public class Snack3Array implements Array {
 	public List<Object> toList() {
 		return json.toObject(List.class);
 	}
+
+	@Override
+	public String toPretty() {
+		Options options = new Options(json.options().getFeatures()).add(Feature.PrettyFormat);
+		Context context = new Context(options, json, null).handle(DEFAULTS.DEF_JSON_TOER);
+		return (String) context.target;
+	}
+
+	@Override
+	public String toString() {
+		return json.toJson();
+	}
+
 }

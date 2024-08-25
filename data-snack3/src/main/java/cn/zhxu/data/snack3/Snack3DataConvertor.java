@@ -2,8 +2,11 @@ package cn.zhxu.data.snack3;
 
 import cn.zhxu.data.Array;
 import cn.zhxu.data.DataConvertor;
+import cn.zhxu.data.DataSet;
 import cn.zhxu.data.Mapper;
 import org.noear.snack.ONode;
+import org.noear.snack.core.Feature;
+import org.noear.snack.core.Options;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,13 +44,24 @@ public class Snack3DataConvertor implements DataConvertor {
 
 	@Override
 	public byte[] serialize(Object object, Charset charset) {
-		return serialize(object).getBytes(charset);
+		return serialize(object, false).getBytes(charset);
 	}
 
 	@Override
-	public String serialize(Object object) {
-		if (object instanceof Snack3Mapper || object instanceof Snack3Array) {
+	public byte[] serialize(Object object, Charset charset, boolean pretty) {
+		return serialize(object, pretty).getBytes(charset);
+	}
+
+	@Override
+	public String serialize(Object object, boolean pretty) {
+		if (object instanceof DataSet) {
+			if (pretty) {
+				return ((DataSet) object).toPretty();
+			}
 			return object.toString();
+		}
+		if (pretty) {
+			return ONode.stringify(object, Options.of(Feature.PrettyFormat));
 		}
 		return ONode.stringify(object);
 	}
