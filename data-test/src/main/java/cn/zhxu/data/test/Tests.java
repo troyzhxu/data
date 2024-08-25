@@ -192,13 +192,15 @@ public abstract class Tests {
     }
 
     private void test_01_toMapper() {
-        assertUser(convertor.toMapper(user1Str()), user1);
-        InputStream in1 = new ByteArrayInputStream(user1Str().getBytes(StandardCharsets.UTF_8));
-        assertUser(convertor.toMapper(in1, StandardCharsets.UTF_8), user1);
-        assertUser(convertor.toMapper(user2Str()), user2);
-        InputStream in2 = new ByteArrayInputStream(user2Str().getBytes(StandardCharsets.UTF_8));
-        assertUser(convertor.toMapper(in2, StandardCharsets.UTF_8), user2);
+        doMapperTest(user1Str(), user1);
+        doMapperTest(user2Str(), user2);
         System.out.println("case 01 passed!");
+    }
+
+    private void doMapperTest(String input, User user1) {
+        assertUser(convertor.toMapper(input), user1);
+        InputStream in1 = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        assertUser(convertor.toMapper(in1, StandardCharsets.UTF_8), user1);
     }
 
     private void test_02_toArray_01() {
