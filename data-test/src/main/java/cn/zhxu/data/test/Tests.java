@@ -192,28 +192,40 @@ public abstract class Tests {
     }
 
     private void test_01_toMapper() {
-        doMapperTest(user1Str(), user1);
-        doMapperTest(user2Str(), user2);
+        Mapper mapper1 = doMapperTest(user1Str(), user1);
+        doMapperTest(mapper1.toString(), user1);
+        doMapperTest(mapper1.toPretty(), user1);
+        Mapper mapper2 = doMapperTest(user2Str(), user2);
+        doMapperTest(mapper2.toString(), user2);
+        doMapperTest(mapper2.toPretty(), user2);
         System.out.println("case 01 passed!");
     }
 
-    private void doMapperTest(String input, User user1) {
-        assertUser(convertor.toMapper(input), user1);
+    private Mapper doMapperTest(String input, User user1) {
+        Mapper mapper = convertor.toMapper(input);
+        assertUser(mapper, user1);
         InputStream in1 = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         assertUser(convertor.toMapper(in1, StandardCharsets.UTF_8), user1);
+        return mapper;
     }
 
     private void test_02_toArray_01() {
         InputStream in = new ByteArrayInputStream(userListStr().getBytes(StandardCharsets.UTF_8));
         assertUserList(convertor.toArray(in, StandardCharsets.UTF_8));
-        assertUserList(convertor.toArray(userListStr()));
+        Array array = convertor.toArray(userListStr());
+        assertUserList(array);
+        assertUserList(convertor.toArray(array.toString()));
+        assertUserList(convertor.toArray(array.toPretty()));
         System.out.println("case 02 passed!");
     }
 
     private void test_03_toArray_02() {
         InputStream in = new ByteArrayInputStream(objectListStr().getBytes(StandardCharsets.UTF_8));
         assertObjectList(convertor.toArray(in, StandardCharsets.UTF_8));
-        assertObjectList(convertor.toArray(objectListStr()));
+        Array array = convertor.toArray(objectListStr());
+        assertObjectList(array);
+        assertObjectList(convertor.toArray(array.toString()));
+        assertObjectList(convertor.toArray(array.toPretty()));
         System.out.println("case 03 passed!");
     }
 
