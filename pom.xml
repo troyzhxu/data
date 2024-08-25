@@ -14,10 +14,10 @@
 		<module>data-jackson</module>
 		<module>data-jackson-xml</module>
 		<module>data-jackson-yaml</module>
-		<module>data-snack3</module>
 		<module>data-fastjson</module>
 		<module>data-fastjson2</module>
 		<module>data-fastjson2-jsonb</module>
+		<module>data-snack3</module>
 		<module>data-test</module>
 	</modules>
 
@@ -127,6 +127,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
+				<configuration>
+					<forkMode>once</forkMode>
+					<!-- 该参数可以避免执行 mvn test 命令时出现中文乱码从而导致测试不通过的问题 -->
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+				</configuration>
 			</plugin>
 
 			<plugin>
