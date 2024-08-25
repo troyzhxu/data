@@ -17,6 +17,12 @@ public interface DataSet {
     boolean isEmpty();
 
     /**
+     * @return 格式化的本文
+     * @since v1.6.0
+     */
+    String toPretty();
+
+    /**
      * 只读数据
      * @since 2.5.1
      */
