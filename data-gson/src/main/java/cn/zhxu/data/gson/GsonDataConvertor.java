@@ -2,12 +2,17 @@ package cn.zhxu.data.gson;
 
 import cn.zhxu.data.Array;
 import cn.zhxu.data.DataConvertor;
+import cn.zhxu.data.DataSet;
 import cn.zhxu.data.Mapper;
 import com.google.gson.*;
+import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -47,15 +52,34 @@ public class GsonDataConvertor implements DataConvertor {
 
 	@Override
 	public byte[] serialize(Object object, Charset charset) {
-		return serialize(object).getBytes(charset);
+		return serialize(object, false).getBytes(charset);
 	}
 
 	@Override
-	public String serialize(Object object) {
-		if (object instanceof GsonMapper || object instanceof GsonArray) {
+	public byte[] serialize(Object object, Charset charset, boolean pretty) {
+		return serialize(object, pretty).getBytes(charset);
+	}
+
+	@Override
+	public String serialize(Object object, boolean pretty) {
+		if (object instanceof DataSet) {
+			if (pretty) {
+				return ((DataSet) object).toPretty();
+			}
 			return object.toString();
 		}
-		return gson.toJson(object);
+		if (object == null) {
+			return gson.toJson(JsonNull.INSTANCE);
+		}
+		StringWriter writer = new StringWriter();
+		try {
+			JsonWriter jsonWriter = gson.newJsonWriter(Streams.writerForAppendable(writer));
+			jsonWriter.setFormattingStyle(pretty ? FormattingStyle.PRETTY : FormattingStyle.COMPACT);
+			gson.toJson(object, object.getClass(), jsonWriter);
+		} catch (IOException e) {
+			throw new JsonIOException(e);
+		}
+		return writer.toString();
 	}
 
 	@Override
@@ -135,17 +159,3 @@ public class GsonDataConvertor implements DataConvertor {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -10,13 +10,12 @@ import com.google.gson.reflect.TypeToken;
 import java.util.Arrays;
 import java.util.List;
 
-public class GsonArray implements Array {
+public class GsonArray extends GsonDataSet implements Array {
 
-	private final Gson gson;
-	private final JsonArray json;
-	
+	final JsonArray json;
+
 	public GsonArray(Gson gson, JsonArray json) {
-		this.gson = gson;
+		super(gson, json);
 		this.json = json;
 	}
 
@@ -111,11 +110,6 @@ public class GsonArray implements Array {
 	@Override
 	public List<Object> toList() {
 		return new GsonList(json);
-	}
-
-	@Override
-	public String toString() {
-		return json.toString();
 	}
 
 }

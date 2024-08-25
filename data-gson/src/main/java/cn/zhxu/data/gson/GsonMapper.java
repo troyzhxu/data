@@ -11,13 +11,12 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 
-public class GsonMapper implements Mapper {
+public class GsonMapper extends GsonDataSet implements Mapper {
 
-	private final Gson gson;
-	private final JsonObject json;
-	
+	final JsonObject json;
+
 	public GsonMapper(Gson gson, JsonObject json) {
-		this.gson = gson;
+		super(gson, json);
 		this.json = json;
 	}
 
@@ -131,11 +130,6 @@ public class GsonMapper implements Mapper {
 	@Override
 	public Set<String> keySet() {
 		return json.keySet();
-	}
-
-	@Override
-	public String toString() {
-		return json.toString();
 	}
 
 }
