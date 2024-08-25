@@ -2,20 +2,23 @@ package cn.zhxu.data.gson;
 
 import cn.zhxu.data.Array;
 import cn.zhxu.data.Mapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
+import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
-public class GsonArray extends GsonDataSet implements Array {
+public class GsonArray implements Array {
 
-	final JsonArray json;
+	private final Gson gson;
+	private final JsonArray json;
 
 	public GsonArray(Gson gson, JsonArray json) {
-		super(gson, json);
+		this.gson = gson;
 		this.json = json;
 	}
 
@@ -110,6 +113,27 @@ public class GsonArray extends GsonDataSet implements Array {
 	@Override
 	public List<Object> toList() {
 		return new GsonList(json);
+	}
+
+	@Override
+	public String toPretty() {
+		try {
+			StringWriter stringWriter = new StringWriter();
+			JsonWriter jsonWriter = new JsonWriter(stringWriter);
+			// Make writer lenient because toString() must not fail, even if for example JsonPrimitive
+			// contains NaN
+			jsonWriter.setStrictness(Strictness.LENIENT);
+			jsonWriter.setFormattingStyle(FormattingStyle.PRETTY);
+			Streams.write(json, jsonWriter);
+			return stringWriter.toString();
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+	@Override
+	public String toString() {
+		return json.toString();
 	}
 
 }
