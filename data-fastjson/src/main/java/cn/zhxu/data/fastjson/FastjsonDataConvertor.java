@@ -2,8 +2,10 @@ package cn.zhxu.data.fastjson;
 
 import cn.zhxu.data.Array;
 import cn.zhxu.data.DataConvertor;
+import cn.zhxu.data.DataSet;
 import cn.zhxu.data.Mapper;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,13 +39,24 @@ public class FastjsonDataConvertor implements DataConvertor {
 
 	@Override
 	public byte[] serialize(Object object, Charset charset) {
-		return serialize(object).getBytes(charset);
+		return serialize(object, false).getBytes(charset);
 	}
 
 	@Override
-	public String serialize(Object object) {
-		if (object instanceof FastjsonMapper || object instanceof FastjsonArray) {
+	public byte[] serialize(Object object, Charset charset, boolean pretty) {
+		return serialize(object, pretty).getBytes(charset);
+	}
+
+	@Override
+	public String serialize(Object object, boolean pretty) {
+		if (object instanceof DataSet) {
+			if (pretty) {
+				return ((DataSet) object).toPretty();
+			}
 			return object.toString();
+		}
+		if (pretty) {
+			return JSON.toJSONString(object, SerializerFeature.PrettyFormat);
 		}
 		return JSON.toJSONString(object);
 	}

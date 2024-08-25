@@ -5,6 +5,7 @@ import cn.zhxu.data.Mapper;
 import cn.zhxu.data.TypeRef;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -87,11 +88,6 @@ public class FastjsonMapper implements Mapper {
 	}
 
 	@Override
-	public String toString() {
-		return json.toJSONString();
-	}
-
-	@Override
 	public <T> T toBean(Type type) {
 		return json.toJavaObject(type);
 	}
@@ -109,6 +105,16 @@ public class FastjsonMapper implements Mapper {
 	@Override
 	public Map<String, Object> toMap() {
 		return json;
+	}
+
+	@Override
+	public String toPretty() {
+		return json.toString(SerializerFeature.PrettyFormat);
+	}
+
+	@Override
+	public String toString() {
+		return json.toJSONString();
 	}
 
 }

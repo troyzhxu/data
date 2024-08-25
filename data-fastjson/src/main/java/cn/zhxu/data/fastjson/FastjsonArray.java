@@ -4,6 +4,7 @@ import cn.zhxu.data.Array;
 import cn.zhxu.data.Mapper;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.util.List;
 
@@ -74,11 +75,6 @@ public class FastjsonArray implements Array {
 	}
 
 	@Override
-	public String toString() {
-		return json.toJSONString();
-	}
-
-	@Override
 	public <T> List<T> toList(Class<T> type) {
 		return json.toJavaList(type);
 	}
@@ -86,6 +82,16 @@ public class FastjsonArray implements Array {
 	@Override
 	public List<Object> toList() {
 		return json;
+	}
+
+	@Override
+	public String toPretty() {
+		return json.toString(SerializerFeature.PrettyFormat);
+	}
+
+	@Override
+	public String toString() {
+		return json.toJSONString();
 	}
 
 }
