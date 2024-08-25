@@ -165,6 +165,11 @@ public class JacksonMapper implements Mapper {
 	}
 
 	@Override
+	public String toPretty() {
+		return json.toPrettyString();
+	}
+
+	@Override
 	public String toString() {
 		return json.toString();
 	}

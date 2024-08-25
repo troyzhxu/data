@@ -2,6 +2,7 @@ package cn.zhxu.data.jackson;
 
 import cn.zhxu.data.Array;
 import cn.zhxu.data.DataConvertor;
+import cn.zhxu.data.DataSet;
 import cn.zhxu.data.Mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -91,16 +92,22 @@ public class JacksonDataConvertor implements DataConvertor {
 	}
 
 	@Override
-	public byte[] serialize(Object object, Charset charset) {
-		return serialize(object).getBytes(charset);
+	public byte[] serialize(Object object, Charset charset, boolean pretty) {
+		return serialize(object, pretty).getBytes(charset);
 	}
 
 	@Override
-	public String serialize(Object object) {
-		if (object instanceof JacksonMapper || object instanceof JacksonArray) {
+	public String serialize(Object object, boolean pretty) {
+		if (object instanceof DataSet) {
+			if (pretty) {
+				return ((DataSet) object).toPretty();
+			}
 			return object.toString();
 		}
 		try {
+			if (pretty) {
+				return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+			}
 			return objectMapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			throw new IllegalStateException("Java Bean [" + object + "] Jackson 序列化异常", e);
