@@ -37,12 +37,16 @@ public abstract class Tests {
 
     protected abstract String user1Str();
     protected abstract boolean checkUser1Str(String serialize);
+    protected abstract boolean checkUser1Str(String serialize, boolean pretty);
     protected abstract String user2Str();
     protected abstract boolean checkUser2Str(String serialize);
+    protected abstract boolean checkUser2Str(String serialize, boolean pretty);
     protected abstract String userListStr();
     protected abstract boolean checkUserListStr(String serialize);
+    protected abstract boolean checkUserListStr(String serialize, boolean pretty);
     protected abstract String objectListStr();
     protected abstract boolean checkObjectListStr(String serialize);
+    protected abstract boolean checkObjectListStr(String serialize, boolean pretty);
 
     protected static final User user1 = new User(101001, "Jack", new School(101, "清华"), false);
     protected static final User user2 = new User(102002, "Alice", new School(102, "北大"), true);
@@ -58,10 +62,6 @@ public abstract class Tests {
         objectList.add("Hello");
         objectList.add(100);
     }
-
-
-//    static final Result<User> userResult = new Result<>(200, "ok", user1);
-//    static final Result<List<User>> listResult = new Result<>(200, "ok", userList);
 
     void assertUser(Mapper user, User expected) {
         Assertions.assertFalse(user.isEmpty());
@@ -241,6 +241,31 @@ public abstract class Tests {
         Assertions.assertTrue(checkUser2Str(convertor.serialize(user2)));
         Assertions.assertTrue(checkUserListStr(convertor.serialize(userList)));
         Assertions.assertTrue(checkObjectListStr(convertor.serialize(objectList)));
+
+        Assertions.assertTrue(checkUser1Str(convertor.serialize(user1, true), true));
+        Assertions.assertTrue(checkUser2Str(convertor.serialize(user2, true), true));
+        Assertions.assertTrue(checkUserListStr(convertor.serialize(userList, true), true));
+        Assertions.assertTrue(checkObjectListStr(convertor.serialize(objectList, true), true));
+
+        Assertions.assertTrue(checkUser1Str(convertor.serialize(user1, false), false));
+        Assertions.assertTrue(checkUser2Str(convertor.serialize(user2, false), false));
+        Assertions.assertTrue(checkUserListStr(convertor.serialize(userList, false), false));
+        Assertions.assertTrue(checkObjectListStr(convertor.serialize(objectList, false), false));
+
+        Assertions.assertTrue(checkUser1Str(new String(convertor.serialize(user1, StandardCharsets.UTF_8))));
+        Assertions.assertTrue(checkUser2Str(new String(convertor.serialize(user2, StandardCharsets.UTF_8))));
+        Assertions.assertTrue(checkUserListStr(new String(convertor.serialize(userList, StandardCharsets.UTF_8))));
+        Assertions.assertTrue(checkObjectListStr(new String(convertor.serialize(objectList, StandardCharsets.UTF_8))));
+
+        Assertions.assertTrue(checkUser1Str(new String(convertor.serialize(user1, StandardCharsets.UTF_8, true)), true));
+        Assertions.assertTrue(checkUser2Str(new String(convertor.serialize(user2, StandardCharsets.UTF_8, true)), true));
+        Assertions.assertTrue(checkUserListStr(new String(convertor.serialize(userList, StandardCharsets.UTF_8, true)), true));
+        Assertions.assertTrue(checkObjectListStr(new String(convertor.serialize(objectList, StandardCharsets.UTF_8, true)), true));
+
+        Assertions.assertTrue(checkUser1Str(new String(convertor.serialize(user1, StandardCharsets.UTF_8, false)), false));
+        Assertions.assertTrue(checkUser2Str(new String(convertor.serialize(user2, StandardCharsets.UTF_8, false)), false));
+        Assertions.assertTrue(checkUserListStr(new String(convertor.serialize(userList, StandardCharsets.UTF_8, false)), false));
+        Assertions.assertTrue(checkObjectListStr(new String(convertor.serialize(objectList, StandardCharsets.UTF_8, false)), false));
         System.out.println("case 06 passed!");
     }
 
