@@ -1,9 +1,11 @@
 package cn.zhxu.data;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 /**
  * 映射结构的只读数据集
@@ -69,9 +71,69 @@ public interface Mapper extends DataSet {
 	boolean has(String key);
 	
 	/**
-	 * @return JSON 的键集合
+	 * @return 键集合
 	 */
 	Set<String> keySet();
+
+	/**
+	 * @return 值集合
+	 * @since v1.6.0
+	 */
+	default List<Data> values() {
+		return keySet().stream().map(k -> new KeyData(this, k)).collect(Collectors.toList());
+	}
+
+	class KeyData implements Data {
+
+		Mapper mapper;
+		String key;
+
+		public KeyData(Mapper mapper, String key) {
+			this.mapper = mapper;
+			this.key = key;
+		}
+
+		@Override
+		public Mapper toMapper() {
+			return mapper.getMapper(key);
+		}
+
+		@Override
+		public Array toArray() {
+			return mapper.getArray(key);
+		}
+
+		@Override
+		public boolean toBool() {
+			return mapper.getBool(key);
+		}
+
+		@Override
+		public int toInt() {
+			return mapper.getInt(key);
+		}
+
+		@Override
+		public long toLong() {
+			return mapper.getLong(key);
+		}
+
+		@Override
+		public float toFloat() {
+			return mapper.getFloat(key);
+		}
+
+		@Override
+		public double toDouble() {
+			return mapper.getDouble(key);
+		}
+
+		@Override
+		public String toString() {
+			return mapper.getString(key);
+		}
+
+	}
 
 	/**
 	 * 遍历 Mapper
@@ -80,48 +142,7 @@ public interface Mapper extends DataSet {
 	 */
 	default void forEach(BiConsumer<String, Data> consumer) {
 		for (String key: keySet()) {
-			consumer.accept(key, new Data() {
-				@Override
-				public Mapper toMapper() {
-					return getMapper(key);
-				}
-
-				@Override
-				public Array toArray() {
-					return getArray(key);
-				}
-
-				@Override
-				public boolean toBool() {
-					return getBool(key);
-				}
-
-				@Override
-				public int toInt() {
-					return getInt(key);
-				}
-
-				@Override
-				public long toLong() {
-					return getLong(key);
-				}
-
-				@Override
-				public float toFloat() {
-					return getFloat(key);
-				}
-
-				@Override
-				public double toDouble() {
-					return getDouble(key);
-				}
-
-				@Override
-				public String toString() {
-					return getString(key);
-				}
-
-			});
+			consumer.accept(key, new KeyData(this, key));
 		}
 	}
 
