@@ -38,13 +38,13 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	
+
 	<developers>
 		<developer>
-			<name>Troy</name>
-			<email>zhou.xu@ejlchina.com</email>
-			<organization>ejlchina</organization>
-			<organizationUrl>http://www.ejlchina.com</organizationUrl>
+			<name>zhouxu</name>
+			<email>1573555987@qq.com</email>
+			<organization>troyzhxu</organization>
+			<organizationUrl>https://zhxu.cn</organizationUrl>
 		</developer>
 	</developers>
 	
@@ -179,15 +179,5 @@
 			</plugin>
         </plugins>
 	</build>
-  
-	<url>https://gitee.com/troyzhxu/data</url>
-	<description>提供 JSON、XML 等结构化数据的统一抽象 API</description>
-	<organization>
-		<name>江苏一键联信息科技有限公司</name>
-		<url>http://www.ejlchina.com/</url>
-	</organization>
-	<issueManagement>
-		<url>https://gitee.com/troyzhxu/data/issues</url>
-	</issueManagement>
 
 </project>
