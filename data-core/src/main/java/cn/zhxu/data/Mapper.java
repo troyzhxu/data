@@ -1,6 +1,7 @@
 package cn.zhxu.data;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -80,7 +81,10 @@ public interface Mapper extends DataSet {
 	 * @since v1.6.0
 	 */
 	default List<Data> values() {
-		return keySet().stream().map(k -> new KeyData(this, k)).collect(Collectors.toList());
+		List<KeyData> values = keySet().stream()
+				.map(k -> new KeyData(this, k))
+				.collect(Collectors.toList());
+		return Collections.unmodifiableList(values);
 	}
 
 	class KeyData implements Data {
