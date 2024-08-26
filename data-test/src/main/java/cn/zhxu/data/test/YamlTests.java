@@ -28,6 +28,21 @@ public class YamlTests extends Tests {
             "deleted: true";
 
     @Override
+    String getStringForMapperValuesTest() {
+        return "---\n" +
+                "id: 1\n" +
+                "age: 20\n";
+    }
+
+    @Override
+    String getStringForArrayStreamTest() {
+        return "---\n" +
+                "- id\n" +
+                "- age\n" +
+                "- name\n";
+    }
+
+    @Override
     protected String user1Str() {
         return user1_0;
     }

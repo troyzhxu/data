@@ -1,18 +1,14 @@
 package cn.zhxu.data.test;
 
-import cn.zhxu.data.Array;
-import cn.zhxu.data.DataConvertor;
-import cn.zhxu.data.Mapper;
-import cn.zhxu.data.TypeRef;
+import cn.zhxu.data.*;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @author Troy.Zhou @ 2022/5/27
@@ -33,6 +29,8 @@ public abstract class Tests {
         test_04_toBean();
         test_05_toList();
         test_06_serialize();
+        test_07_mapper_values();
+        test_08_array_stream();
     }
 
     protected abstract String user1Str();
@@ -71,6 +69,14 @@ public abstract class Tests {
         Assertions.assertTrue(user.has("school"));
         Assertions.assertTrue(user.has("deleted"));
         Assertions.assertFalse(user.has("age"));
+
+        Set<String> keySet = user.keySet();
+        Assertions.assertEquals(4, keySet.size());
+        Assertions.assertTrue(keySet.contains("id"));
+        Assertions.assertTrue(keySet.contains("name"));
+        Assertions.assertTrue(keySet.contains("school"));
+        Assertions.assertTrue(keySet.contains("deleted"));
+
         Assertions.assertEquals(expected.getId(), user.getInt("id"));
         Assertions.assertEquals(expected.getName(), user.getString("name"));
         Assertions.assertEquals(expected.isDeleted(), user.getBool("deleted"));
@@ -291,6 +297,47 @@ public abstract class Tests {
         Assertions.assertTrue(checkUserListStr(new String(convertor.serialize(userList, StandardCharsets.UTF_8, false)), false));
         Assertions.assertTrue(checkObjectListStr(new String(convertor.serialize(objectList, StandardCharsets.UTF_8, false)), false));
         System.out.println("case 06 passed!");
+    }
+
+    abstract String getStringForMapperValuesTest();
+
+    private void test_07_mapper_values() {
+        Set<Integer> values = convertor.toMapper(getStringForMapperValuesTest()).values()
+                .stream().map(DataSet.Data::toInt).collect(Collectors.toSet());
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(20);
+        Assertions.assertEquals(values, set);
+        System.out.println("case 07 passed!");
+    }
+
+    abstract String getStringForArrayStreamTest();
+
+    private void test_08_array_stream() {
+        Array array = convertor.toArray(getStringForArrayStreamTest());
+        List<String> values = array.stream()
+                .map(DataSet.Data::toString)
+                .collect(Collectors.toList());
+        List<String> list = new ArrayList<>();
+        list.add("id");
+        list.add("age");
+        list.add("name");
+        Assertions.assertEquals(values, list);
+
+        int idx = 0;
+        for (DataSet.Data data: array) {
+            Assertions.assertEquals(list.get(idx++), data.toString());
+        }
+        Assertions.assertEquals(list.size(), idx);
+
+        Iterator<DataSet.Data> it = array.iterator();
+        idx = 0;
+        while (it.hasNext()) {
+            Assertions.assertEquals(list.get(idx++), it.next().toString());
+        }
+        Assertions.assertEquals(list.size(), idx);
+
+        System.out.println("case 08 passed!");
     }
 
 }

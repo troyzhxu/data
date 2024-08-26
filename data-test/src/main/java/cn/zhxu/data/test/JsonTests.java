@@ -168,6 +168,16 @@ public class JsonTests extends Tests {
         return checkObjectListStr(json);
     }
 
+    @Override
+    String getStringForMapperValuesTest() {
+        return "{\"id\":1,\"age\":20}";
+    }
+
+    @Override
+    String getStringForArrayStreamTest() {
+        return "[\"id\",\"age\",\"name\"]";
+    }
+
     private boolean prettyJsonEquals(String expect, String json) {
         return expect.equals(json) || expect.replace("\t", "  ").equals(json) ||
                 expect.replace(":", ": ").equals(json) ||

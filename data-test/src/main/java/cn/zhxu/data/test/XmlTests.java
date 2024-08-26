@@ -22,6 +22,16 @@ public class XmlTests extends Tests {
     final String user2_0 = "<User><id>102002</id><name>Alice</name><school><id>102</id><name>北大</name></school><deleted>true</deleted></User>";
 
     @Override
+    String getStringForMapperValuesTest() {
+        return "<User><id>1</id><age>20</age></User>";
+    }
+
+    @Override
+    String getStringForArrayStreamTest() {
+        return "<ArrayList><item>id</item><item>age</item><item>name</item></ArrayList>";
+    }
+
+    @Override
     protected String user1Str() {
         return user1_0;
     }
