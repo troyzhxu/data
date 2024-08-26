@@ -6,6 +6,7 @@ import cn.zhxu.data.Mapper;
 import cn.zhxu.data.fastjson2.Fastjson2Array;
 import cn.zhxu.data.fastjson2.Fastjson2Mapper;
 import com.alibaba.fastjson2.JSONB;
+import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.util.ParameterizedTypeImpl;
 
 import java.io.ByteArrayOutputStream;
@@ -46,19 +47,28 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
     }
 
     @Override
-    public byte[] serialize(Object object, Charset charset) {
+    public byte[] serialize(Object object, Charset charset, boolean pretty) {
         if (object instanceof Fastjson2Mapper) {
+            if (pretty) {
+                return ((Fastjson2Mapper) object).toJSONBBytes(JSONWriter.Feature.PrettyFormat);
+            }
             return ((Fastjson2Mapper) object).toJSONBBytes();
         }
         if (object instanceof Fastjson2Array) {
+            if (pretty) {
+                return ((Fastjson2Array) object).toJSONBBytes(JSONWriter.Feature.PrettyFormat);
+            }
             return ((Fastjson2Array) object).toJSONBBytes();
+        }
+        if (pretty) {
+            return JSONB.toBytes(object, JSONWriter.Feature.PrettyFormat);
         }
         return JSONB.toBytes(object);
     }
 
     @Override
-    public String serialize(Object object) {
-        byte[] bytes = serialize(object, null);
+    public String serialize(Object object, boolean pretty) {
+        byte[] bytes = serialize(object, StandardCharsets.UTF_8, pretty);
         return Base64.getEncoder().encodeToString(bytes);
     }
 

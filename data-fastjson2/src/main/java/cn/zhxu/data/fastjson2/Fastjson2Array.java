@@ -94,4 +94,8 @@ public class Fastjson2Array implements Array {
 		return json.toJSONString();
 	}
 
+	public byte[] toJSONBBytes(JSONWriter.Feature... features) {
+		return json.toJSONBBytes(features);
+	}
+
 }

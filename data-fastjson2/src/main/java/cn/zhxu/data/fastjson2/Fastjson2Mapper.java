@@ -117,4 +117,8 @@ public class Fastjson2Mapper implements Mapper {
 		return json.toJSONString();
 	}
 
+	public byte[] toJSONBBytes(JSONWriter.Feature... features) {
+		return json.toJSONBBytes(features);
+	}
+
 }
