@@ -19,114 +19,114 @@ import java.util.Set;
  * */
 public class Snack3Mapper implements Mapper {
 
-	private final ONode json;
-	
-	public Snack3Mapper(ONode json) {
-		if (json.isObject()) {
-			this.json = json;
-		} else {
-			throw new IllegalArgumentException("illegal json object type");
-		}
-	}
+    private final ONode json;
+    
+    public Snack3Mapper(ONode json) {
+        if (json.isObject()) {
+            this.json = json;
+        } else {
+            throw new IllegalArgumentException("illegal json object type");
+        }
+    }
 
-	@Override
-	public int size() {
-		return json.count();
-	}
+    @Override
+    public int size() {
+        return json.count();
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return json.count() == 0;
-	}
+    @Override
+    public boolean isEmpty() {
+        return json.count() == 0;
+    }
 
-	@Override
-	public Mapper getMapper(String key) {
-		ONode subJson = json.get(key);
-		if (subJson != null && subJson.isObject()) {
-			return new Snack3Mapper(subJson);
-		}
-		return null;
-	}
+    @Override
+    public Mapper getMapper(String key) {
+        ONode subJson = json.get(key);
+        if (subJson != null && subJson.isObject()) {
+            return new Snack3Mapper(subJson);
+        }
+        return null;
+    }
 
-	@Override
-	public Array getArray(String key) {
-		ONode subJson = json.get(key);
-		if (subJson != null && subJson.isArray()) {
-			return new Snack3Array(subJson);
-		}
-		return null;
-	}
+    @Override
+    public Array getArray(String key) {
+        ONode subJson = json.get(key);
+        if (subJson != null && subJson.isArray()) {
+            return new Snack3Array(subJson);
+        }
+        return null;
+    }
 
-	@Override
-	public boolean getBool(String key) {
-		return json.get(key).getBoolean();
-	}
+    @Override
+    public boolean getBool(String key) {
+        return json.get(key).getBoolean();
+    }
 
-	@Override
-	public int getInt(String key) {
-		return json.get(key).getInt();
-	}
+    @Override
+    public int getInt(String key) {
+        return json.get(key).getInt();
+    }
 
-	@Override
-	public long getLong(String key) {
-		return json.get(key).getLong();
-	}
-	
-	@Override
-	public float getFloat(String key) {
-		return json.get(key).getFloat();
-	}
+    @Override
+    public long getLong(String key) {
+        return json.get(key).getLong();
+    }
+    
+    @Override
+    public float getFloat(String key) {
+        return json.get(key).getFloat();
+    }
 
-	@Override
-	public double getDouble(String key) {
-		return json.get(key).getDouble();
-	}
+    @Override
+    public double getDouble(String key) {
+        return json.get(key).getDouble();
+    }
 
-	@Override
-	public String getString(String key) {
-		return json.get(key).getString();
-	}
+    @Override
+    public String getString(String key) {
+        return json.get(key).getString();
+    }
 
-	@Override
-	public boolean has(String key) {
-		return json.contains(key);
-	}
+    @Override
+    public boolean has(String key) {
+        return json.contains(key);
+    }
 
-	@Override
-	public Set<String> keySet() {
-		return json.obj().keySet();
-	}
+    @Override
+    public Set<String> keySet() {
+        return json.obj().keySet();
+    }
 
-	@Override
-	public <T> T toBean(Type type) {
-		return json.toObject(type);
-	}
+    @Override
+    public <T> T toBean(Type type) {
+        return json.toObject(type);
+    }
 
-	@Override
-	public <T> T toBean(Class<T> type) {
-		return json.toObject(type);
-	}
+    @Override
+    public <T> T toBean(Class<T> type) {
+        return json.toObject(type);
+    }
 
-	@Override
-	public <T> T toBean(TypeRef<T> type) {
-		return json.toObject(type.getType());
-	}
+    @Override
+    public <T> T toBean(TypeRef<T> type) {
+        return json.toObject(type.getType());
+    }
 
-	@Override
-	public Map<String, Object> toMap() {
-		return json.toObject(Map.class);
-	}
+    @Override
+    public Map<String, Object> toMap() {
+        return json.toObject(Map.class);
+    }
 
-	@Override
-	public String toPretty() {
-		Options options = new Options(json.options().getFeatures()).add(Feature.PrettyFormat);
-		Context context = new Context(options, json, null).handle(DEFAULTS.DEF_JSON_TOER);
-		return (String) context.target;
-	}
+    @Override
+    public String toPretty() {
+        Options options = new Options(json.options().getFeatures()).add(Feature.PrettyFormat);
+        Context context = new Context(options, json, null).handle(DEFAULTS.DEF_JSON_TOER);
+        return (String) context.target;
+    }
 
-	@Override
-	public String toString() {
-		return json.toJson();
-	}
+    @Override
+    public String toString() {
+        return json.toJson();
+    }
 
 }
