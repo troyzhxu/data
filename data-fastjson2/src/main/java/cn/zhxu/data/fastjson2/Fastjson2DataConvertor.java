@@ -53,11 +53,11 @@ public class Fastjson2DataConvertor implements DataConvertor {
 
     @Override
     public String serialize(Object object, boolean pretty) {
-        if (object instanceof DataSet) {
-            if (pretty) {
-                return ((DataSet) object).toPretty();
-            }
-            return object.toString();
+        if (object instanceof Mapper) {
+            object = ((Mapper) object).toMap();
+        }
+        if (object instanceof Array) {
+            object = ((Array) object).toList();
         }
         if (pretty) {
             return JSON.toJSONString(object, JSONWriter.Feature.PrettyFormat);

@@ -48,17 +48,11 @@ public class Fastjson2JsonbDataConvertor implements DataConvertor {
 
     @Override
     public byte[] serialize(Object object, Charset charset, boolean pretty) {
-        if (object instanceof Fastjson2Mapper) {
-            if (pretty) {
-                return ((Fastjson2Mapper) object).toJSONBBytes(JSONWriter.Feature.PrettyFormat);
-            }
-            return ((Fastjson2Mapper) object).toJSONBBytes();
+        if (object instanceof Mapper) {
+            object = ((Mapper) object).toMap();
         }
-        if (object instanceof Fastjson2Array) {
-            if (pretty) {
-                return ((Fastjson2Array) object).toJSONBBytes(JSONWriter.Feature.PrettyFormat);
-            }
-            return ((Fastjson2Array) object).toJSONBBytes();
+        if (object instanceof Array) {
+            object = ((Array) object).toList();
         }
         if (pretty) {
             return JSONB.toBytes(object, JSONWriter.Feature.PrettyFormat);

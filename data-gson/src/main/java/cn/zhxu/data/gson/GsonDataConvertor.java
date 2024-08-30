@@ -62,14 +62,14 @@ public class GsonDataConvertor implements DataConvertor {
 
     @Override
     public String serialize(Object object, boolean pretty) {
-        if (object instanceof DataSet) {
-            if (pretty) {
-                return ((DataSet) object).toPretty();
-            }
-            return object.toString();
-        }
         if (object == null) {
             return gson.toJson(JsonNull.INSTANCE);
+        }
+        if (object instanceof Mapper) {
+			object = ((Mapper) object).toMap();
+        }
+        if (object instanceof Array) {
+            object = ((Array) object).toList();
         }
         StringWriter writer = new StringWriter();
         try {
